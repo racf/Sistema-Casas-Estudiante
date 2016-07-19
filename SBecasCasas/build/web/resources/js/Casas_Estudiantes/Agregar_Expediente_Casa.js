@@ -159,23 +159,18 @@ function calcularMontoTotal() {
 function procesarCheckBox(htmlComp) {
     var hiddenMatricula = document.getElementById("formulario:hiddenMatricula");
     var inputHidden = htmlComp.parentNode.getElementsByTagName('input')[1];
-    console.log(inputHidden);
-    console.log('hiddenMatricula b4 = ' + hiddenMatricula.value);
     hiddenMatricula.value = inputHidden.value;
-    console.log('matricula procesada es = ' + hiddenMatricula.value);
     var boton = document.getElementById("formulario:hiddenButton");
     boton.click();
 }
 
 function procesarTableCheckBox() {
     var expMatricula = document.getElementById("formulario:hiddenMatricula").value;
-    console.log('la matricula recibida es = ' + expMatricula);
     var table = document.getElementById("form:table");
     var row;
     var cell;
     var checkBox;
     var inputHidden;
-    console.log('/////////////////////////////');
     for (var i = 1, row; row = table.rows[i]; i++) {
 //iterate through rows
 //rows would be accessed using the "row" variable assigned in the for loop
@@ -183,15 +178,12 @@ function procesarTableCheckBox() {
         checkBox = cell.getElementsByTagName('input')[0];
         inputHidden = cell.getElementsByTagName('input')[1];
         
-        console.log('inputHidden.value = ' + inputHidden.value + ' ------ expMatricula = ' + expMatricula);
-        console.log('(inputHidden.value === expMatricula) = ' + (inputHidden.value === expMatricula));
         if (inputHidden.value === expMatricula) {
             checkBox.checked = true;
         } else {
             checkBox.checked = false;
         }
     }
-    console.log('------------------------');
 }
 
 //<editor-fold defaultstate="collapsed" desc="Numero - A - Letras">
