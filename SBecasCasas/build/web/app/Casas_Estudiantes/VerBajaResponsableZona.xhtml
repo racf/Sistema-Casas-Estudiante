@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet name="css/dataTables.min.css"/>
+        <h:outputScript name="jquery/jquery.min.js"/>
+        <h:outputScript name="js/dataTables.min.js"/>
+        <h:outputScript name="js/Casas_Estudiantes/Tbl_Responsable.js" />
+        <h:outputScript name="js/script.js"/>
+        <h:outputScript name="js/bootbox.min.js"/>
+    </h:head>    
+
+    <h:body>
+
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+                <div class="panel panel-default">
+                    <div class="panel-heading" align="center">
+                        <h3 class="panel-title"><strong>Ver Responsables de Zonas Dados de Baja</strong></h3>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div id="messageActivarResponsableZona"></div>
+                        <div class="form-group-sm"><h4><label class="label label-primary">Buscar Responsable</label></h4></div>
+                        <h:form id="form">
+                            <h:dataTable id="table" value="#{verBajaResponsableZonaBeans.obtenerDatosBajaResponsable()}" var="lstResponsable" class="display table-condensed">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Numero Empleado"></h:outputLabel>
+                                    </f:facet>
+                                    <h:outputLabel value="#{lstResponsable.id}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Nombre"></h:outputLabel>
+                                    </f:facet>
+                                    <h:outputLabel value="#{lstResponsable.nombre} #{lstResponsable.apellidoPat} #{lstResponsable.apellidoMat}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Email"></h:outputLabel>
+                                    </f:facet>
+                                    <h:outputLabel value="#{lstResponsable.email}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Zona"></h:outputLabel>
+                                    </f:facet>
+                                    <h:outputLabel value="#{lstResponsable.zonasDTO.nombre}"/>
+                                </h:column> 
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Opciones"></h:outputLabel>
+                                    </f:facet>
+                                    <div align="center">
+                                        <h:link a:href="#!" type="button" onclick="confirmActivacionResponsable(this, #{lstResponsable.id})"  class="btn btn-danger btn-sm" title="Reactivar Responsable Dados de Baja" id="btnActivarResponsable"><span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span></h:link>
+                                        <h:commandButton style="display: none" id="btnActivarResponsable1" value="Submit" action="#{verBajaResponsableZonaBeans.activar(lstResponsable)}"></h:commandButton>
+                                    </div>
+                                </h:column>
+                            </h:dataTable>
+                            <br/>
+                            <div align="right">
+                                <h:commandButton value="Cancelar" action="#{verBajaResponsableZonaBeans.salir()}"></h:commandButton>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

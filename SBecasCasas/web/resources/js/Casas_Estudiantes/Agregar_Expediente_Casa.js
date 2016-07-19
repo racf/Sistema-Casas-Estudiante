@@ -156,9 +156,10 @@ function calcularMontoTotal() {
     cantidadLetra.value = NumeroALetras(montoTotal.value);
 }
 
-function procesarCheckBox(respMatricula) {
+function procesarCheckBox(htmlComp) {
     var hiddenMatricula = document.getElementById("formulario:hiddenMatricula");
-    hiddenMatricula.value = respMatricula;
+    var inputHidden = htmlComp.parentNode.getElementsByTagName('input')[1];
+    hiddenMatricula.value = inputHidden.value;
     var boton = document.getElementById("formulario:hiddenButton");
     boton.click();
 }
@@ -176,6 +177,7 @@ function procesarTableCheckBox() {
         cell = row.cells[5];
         checkBox = cell.getElementsByTagName('input')[0];
         inputHidden = cell.getElementsByTagName('input')[1];
+        
         if (inputHidden.value === expMatricula) {
             checkBox.checked = true;
         } else {

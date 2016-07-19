@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+
+        <h:outputStylesheet name="css/dataTables.min.css"/>
+        <h:outputScript name="jquery/jquery.min.js"/>
+        <h:outputScript name="js/dataTables.min.js"/>
+        <h:outputScript name="js/bootbox.min.js"/>
+
+
+    </h:head>
+
+    <body>
+
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active"><a href="#!">Ver Expediente de Casa</a></li>
+                </ul>
+                <div class="panel panel-default">
+                    <h:form id="formulario">
+                        <div class="row">
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md-8">
+                                <br/>
+                                <div class="form-inline">
+                                    <h:outputLabel for="casas" value="Casa : " /> &nbsp;
+                                    <h:outputText id="casas" value="#{casas_verExpedienteCasa.expediente.tbl_casaestudianteDTO.nombre}" />
+                                </div>
+                            </div>
+                            <div align="right" class="col-md-2">
+                                <br/>
+                                <h:commandLink class="btn btn-link" action="#{casas_verExpedienteCasa.atras()}">
+                                    <span class="glyphicon glyphicon-arrow-left">&nbsp;Atras</span>
+                                </h:commandLink>
+                            </div>
+                            <div class="col-md-1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <br/>
+                                    <div class="form-inline">
+                                        <h:outputLabel for="arrendatarios" value="Arrendatario : " /> &nbsp;
+                                        <h:outputText id="arrendatarios" value="#{casas_verExpedienteCasa.expediente.tbl_arrendatarioDTO.nombre}" />
+                                    </div>
+                                    <br/>
+                                    <div class="form-inline">
+                                        <h:outputLabel for="montoRenta" value="Monto Renta : " /> &nbsp;
+                                        <h:outputText id="montoRenta" value="#{casas_verExpedienteCasa.expediente.montoRenta}">
+                                            <f:convertNumber type="currency" currencySymbol="$ "/>
+                                        </h:outputText> 
+                                    </div>
+                                    <br/>
+                                    <div class="form-inline">
+                                        <h:outputLabel for="tipoRenta" value="Tipo Renta : " /> &nbsp;
+                                        <h:outputText id="tipoRenta" value="#{casas_verExpedienteCasa.expediente.tipoRenta}" />
+                                    </div>
+                                    <br/>
+                                    <div class="form-inline ">
+                                        <h:outputLabel for="fechaInicial" value="Fecha Inicial Arrendamiento : " /> &nbsp;
+                                        <h:outputText id="fechaInicial" value="#{casas_verExpedienteCasa.expediente.fechaInicialArrendamiento}">
+                                            <f:convertDateTime locale="es-mx" dateStyle="long"/>
+                                        </h:outputText>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <br/>
+                                    <div class="form-inline">
+                                        <h:outputLabel for="arrendadores" value="Arrendador : " /> &nbsp;
+                                        <h:outputText id="arrendadores" 
+                                            value="#{casas_verExpedienteCasa.expediente.tbl_arrendadorDTO.nombre} 
+                                            #{casas_verExpedienteCasa.expediente.tbl_arrendadorDTO.apellidoPat} 
+                                            #{casas_verExpedienteCasa.expediente.tbl_arrendadorDTO.apellidoMat}" />
+                                    </div>
+                                    <br/>
+                                    <div class="form-inline">
+                                        <h:outputLabel for="aumentoRenta" value="Aumento : " /> &nbsp;
+                                        <div class="input-group input-group-sm col-md-2"> 
+                                            <h:outputText id="aumentoRenta" value="#{casas_verExpedienteCasa.expediente.aumento / 100}">
+                                                <f:convertNumber type="percent" maxFractionDigits="2" minIntegerDigits="1" />
+                                            </h:outputText>
+                                        </div>
+                                        <h:outputLabel for="montoTotal" value="Monto Total : " />
+                                        <div class="input-group input-group-sm col-md-3">
+                                            <h:outputText id="montoTotal" value="#{casas_verExpedienteCasa.expediente.montoTotal}">
+                                                <f:convertNumber type="currency" currencySymbol="$ " />
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="form-inline">
+                                        <h:outputLabel for="cantLetra" value="Cantidad en Letra : " /> &nbsp;
+                                        <h:outputText id="cantLetra" value="#{casas_verExpedienteCasa.expediente.montoLetra}" />
+                                    </div>
+                                    <br/>
+                                    <div class="form-inline">
+                                        <h:outputLabel for="fechaFinal" value="Fecha Final Arrendamiento : " /> &nbsp;
+                                        <h:outputText id="fechaFinal" value="#{casas_verExpedienteCasa.expediente.fechaFinalArrendamiento}">
+                                            <f:convertDateTime locale="es-mx" dateStyle="long" />
+                                        </h:outputText>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                            </div>
+                        </div>
+                        <br/>
+                    </h:form>
+                </div>
+                <br/>
+                <div id="message"></div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h:form id="form">
+                            <h:dataTable id="table" class="display" value="#{casas_verExpedienteCasa.expediente.tbl_representanteDTO}" var="elemento">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Matricula"></h:outputLabel>
+                                    </f:facet>
+                                    <h:outputText value="#{elemento.matricula}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Nombre"></h:outputLabel>
+                                    </f:facet>
+                                    <h:outputText value="#{elemento.nombre} #{elemento.apellidoPat} #{elemento.apellidoMat}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Tipo Representante"></h:outputLabel>
+                                    </f:facet>
+                                    <h:outputText value="#{elemento.cat_TipoRepresentanteDTO.cat_tiporepresentanteNombre}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Telefono"></h:outputLabel>
+                                    </f:facet>
+                                    <h:outputText value="#{elemento.telefono}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="E-mail"></h:outputLabel>
+                                    </f:facet>
+                                    <h:outputText value="#{elemento.email}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+        <script>
+            $('#form > table').DataTable();
+        </script>
+    </body>
+</html>

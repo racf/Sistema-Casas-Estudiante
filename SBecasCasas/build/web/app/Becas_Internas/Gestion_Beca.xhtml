@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/dataTables.min.css"/>
+        <h:outputScript name="jquery/jquery.min.js"/>
+        <h:outputScript name="js/dataTables.min.js"/>
+        <h:outputScript name="js/Becas_Internas/Tbl_Becario.js" />
+        <h:outputScript name="js/script.js"/>
+        <h:outputStylesheet name="css/tablaPersonalizada.css"/>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+                <div id="page-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#gestionBecas" data-toggle="tab"><span class="glyphicon glyphicon-file"></span>Gestión de Becas</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active table-responsive" id="gestionBecas">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-body">
+                                                        <h:link a:href="AltaBecario.xhtml" type="button" class="btn btn-success btn-lg" title="Alta Becario" id="AltaBecario"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></h:link>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-body">
+                                                        <h:link a:href="VerBajaBecario.xhtml" type="button" class="btn btn-danger btn-lg" title="Ver Becarios Dados de Baja" id="VerBecariosBaja"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></h:link>
+                                                    </div>
+                                                </div> 
+                                                <div class="panel panel-default">
+                                                    <div class="panel-body">
+                                                        <div class="form-group-sm"><h4><label class="label label-primary">Buscar Becario</label></h4></div>
+                                                    <h:form id="form">
+                                                        <h:dataTable id="table" value="#{gestionBecaBeans.obtenerDatos()}" var="lstBecario" class="display table-condensed">
+                                                            <h:column>
+                                                                <f:facet name="header">
+                                                                    <h:outputLabel value="Numero ID"></h:outputLabel>
+                                                                </f:facet>
+                                                                <h:outputLabel value="#{lstBecario.id}"/>
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">
+                                                                    <h:outputLabel value="Nombre"></h:outputLabel>
+                                                                </f:facet>
+                                                                <h:outputLabel value="#{lstBecario.nombre} #{lstBecario.apellidoPat} #{lstBecario.apellidoMat}" />
+                                                            </h:column> 
+                                                            <h:column>
+                                                                <f:facet name="header">
+                                                                    <h:outputLabel value="CURP"></h:outputLabel>
+                                                                </f:facet>
+                                                                <h:outputLabel value="#{lstBecario.curp}"/>
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">
+                                                                    <h:outputLabel value="Reactivación Beca"></h:outputLabel>
+                                                                </f:facet>
+                                                                <div align="center">
+                                                                    <h:link a:href="#!" type="button" onclick="obtenerId(this)" id="btnReactivarBeca" class="btn btn-primary btn-sm" title="Reactivación de Beca"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></h:link>
+                                                                    <h:commandButton style="display: none" id="btnReactiva" value="Submit" action="#{gestionBecaBeans.outcome(lstBecario.id)}"></h:commandButton>
+                                                                </div>
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">
+                                                                    <h:outputLabel value="Detalle Becario"></h:outputLabel>
+                                                                </f:facet>
+                                                                <div align="center">
+                                                                    <h:link a:href="#!" type="button"  class="btn btn-success btn-sm" onclick="obtenerIdDetalleBecario(this)" title="Detalle Becario" id="btnDetalleBecario"><span class="fa fa-list-alt" aria-hidden="true"></span></h:link>                                                                
+                                                                    <h:commandButton style="display: none" id="btnDBecario" value="Submit" action="#{gestionBecaBeans.outcomeDetalleBecario(lstBecario.id)}"></h:commandButton>
+                                                                </div>
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">
+                                                                    <h:outputLabel value="Baja Becario"></h:outputLabel>
+                                                                </f:facet>
+                                                                <div align="center">
+                                                                    <h:link a:href="#!" class="btn-danger btn-sm" onclick="obtenerIdBajaBecario(this)" type="button"  title="Baja del Becario" id="btnBajaBec"><span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span></h:link>
+                                                                    <h:commandButton style="display: none" id="btnBajaBecario" value="Submit" action="#{gestionBecaBeans.outcomeBajaBecario(lstBecario.id)}"></h:commandButton>
+                                                                </div>
+                                                            </h:column> 
+                                                            <h:column>
+                                                                <f:facet name="header">
+                                                                    <h:outputLabel value="Modificar Becario"></h:outputLabel>
+                                                                </f:facet>
+                                                                <div align="center">
+                                                                    <h:link a:href="#!" type="button"  class="btn btn-warning btn-sm" onclick="obtenerIdModificarBecario(this)" title="Modificar Becario" id="btnModificarBecario"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></h:link>
+                                                                    <h:commandButton style="display: none" id="btnModBecario" value="Submit" action="#{gestionBecaBeans.outcomeModBecario(lstBecario.id)}"></h:commandButton>
+                                                                </div>
+                                                            </h:column>                                                            
+                                                        </h:dataTable>
+                                                    </h:form>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

@@ -1,0 +1,228 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputScript name="jquery/jquery.min.js"/>
+        <h:outputScript name="js/Becas_Internas/Tbl_Becario.js"/>
+        <h:outputStylesheet name="css/chosen.css"/>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="./../../template.xhtml">
+            <ui:define name="content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Reactivación Beca</strong></h3>
+                    </div>
+                </div>
+                <h:form id="formReactivacionBeca">                                    
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <fieldset class="fieldset">
+                                <legend><h5><strong>Detalle del Becario</strong></h5></legend>
+                                <table class="table-responsive">
+                                    <tr>
+                                        <td>
+                                            <strong><h:outputLabel value="Numero ID:" for="numeroID"></h:outputLabel></strong>                                  
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{reactivacionBecaBeans.becarioDTO.id}"></h:outputText>
+                                            <h:inputHidden value="#{reactivacionBecaBeans.becarioDTO.id}"/>
+                                        </td>
+                                        <td>
+                                            <strong><h:outputLabel value="Fecha de Registro:" for="fechaRegistro"></h:outputLabel></strong>                                   
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{reactivacionBecaBeans.becarioDTO.fechaRegistro}"></h:outputText>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong><h:outputLabel value="Nombre:" for="nombre"></h:outputLabel></strong>                                   
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{reactivacionBecaBeans.becarioDTO.nombre} #{reactivacionBecaBeans.becarioDTO.apellidoPat} #{reactivacionBecaBeans.becarioDTO.apellidoMat}"></h:outputText>
+                                        </td>
+                                        <td>
+                                            <strong><h:outputLabel value="Telefono:" for="telefono"></h:outputLabel></strong>                                   
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{reactivacionBecaBeans.becarioDTO.telefono}"></h:outputText>
+                                        </td>                                    
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong><h:outputLabel value="CURP:" for="curp"></h:outputLabel></strong>                                     
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{reactivacionBecaBeans.becarioDTO.curp}"></h:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </fieldset>
+                        </div>
+                    </div>
+                   
+                    <div class="form-group-sm"><h4><label class="label label-danger">Datos Generales de la Beca: </label></h4></div>                                      
+                    <div id="message"></div>
+                    <div class="form-group">
+                        <h4><h:message class="label label-info" style="color: red" for="txtNumeroID"/></h4>
+                    </div> 
+                    <table class="table-condensed"> 
+                        <tr>
+                            <td>
+                                <h:outputLabel id="lblNumeroID" value="Numero ID*:" for="numeroID"></h:outputLabel>                                   
+                            </td>
+                            <td>
+                                <div class="form-inline">
+                                    <div class="input-group custom-search-form tablaelemtbuscar">                                                      
+                                        <h:inputText id="txtNumeroID1" readonly="true" validator="existeBecarioExternoValidate" a:type="number" a:min="0" class="form-control" label="Numero ID" value="#{reactivacionBecaBeans.detalleBecarioDTO.tbl_becarioIdDTO}"></h:inputText>
+                                        <h:inputHidden id="txtNumeroID" value="#{reactivacionBecaBeans.detalleBecarioDTO.tbl_becarioIdDTO}"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default form-control" id="btnBuscarBecario" onclick="buscarBecario(this)" title="Buscar Becario...">
+                                                <i class="fa fa-search"></i>            
+                                            </button>
+                                        </span>                                                                                                                        
+                                    </div>
+                                    <h:commandButton id="btnBuscarBecario1" style="display: none" value="Buscar" onclick="#{reactivacionBecaBeans.obtenerDatosExternosBecario()}"/>                                                                                                                                   
+                                </div>                                                                
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong><h:outputLabel value="Clave Beca :" for="claveBeca"/></strong>
+                            </td>
+                            <td>
+                                <h:inputText id="claveBeca1" class="form-control" readonly="true" value="#{reactivacionBecaBeans.detalleBecarioDTO.cat_tipobecaIdDTO}"/>
+                                <h:inputHidden id="claveBeca" value="#{reactivacionBecaBeans.detalleBecarioDTO.cat_tipobecaIdDTO}"/>
+                            </td>
+                            <td>
+                                <strong><h:outputLabel value="Tipo de Beca :" for="tipoBeca"></h:outputLabel></strong>
+                            </td>
+                            <td>
+                                <h:inputText id="tipoBeca1" class="form-control" readonly="true" value="#{reactivacionBecaBeans.detalleBecarioDTO.tipoBecaDTO.nombre}"/>
+                                <h:inputHidden id="tipoBeca" value="#{reactivacionBecaBeans.detalleBecarioDTO.tipoBecaDTO.nombre}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong><h:outputLabel value="Fecha Inicio de la Beca *:" for="fechaFinal"></h:outputLabel></strong>
+                            </td>
+                            <td>
+                                <h:inputText id="txtFechaInicioBeca1" readonly="true" value="#{reactivacionBecaBeans.detalleBecarioDTO.fechaInicioBeca}" 
+                                             class="form-control" label="Fecha Inicio de la Beca">
+                                    <f:convertDateTime dateStyle="default" />
+                                </h:inputText>
+                                <h:inputHidden id="txtFechaInicioBeca" value="#{reactivacionBecaBeans.detalleBecarioDTO.fechaInicioBeca}">
+                                    <f:convertDateTime dateStyle="default" timeZone="America/Mexico_City"/>
+                                </h:inputHidden> 
+                            </td>
+                            <td>
+                                <strong><h:outputLabel value="Fecha Final de la Beca *:" for="fechaInicial"></h:outputLabel></strong>
+                            </td>
+                            <td>
+                                <h:inputText  id="txtFechaFinalBeca1" readonly="true" value="#{reactivacionBecaBeans.detalleBecarioDTO.fechaFinBeca}" 
+                                              class="form-control" label="Fecha Final de la Beca">                                            
+                                    <f:convertDateTime dateStyle="default"></f:convertDateTime>                                        
+                                </h:inputText>
+                                <h:inputHidden id="txtFechaFinalBeca" value="#{reactivacionBecaBeans.detalleBecarioDTO.fechaFinBeca}">
+                                    <f:convertDateTime dateStyle="default" timeZone="America/Mexico_City"/>
+                                </h:inputHidden>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong><h:outputLabel id="lblArea" value="Area *:" for="area"></h:outputLabel></strong>
+                            </td>
+                            <td>
+                                <h:inputText id="txtArea" label="Area"  value="#{reactivacionBecaBeans.detalleBecarioDTO.area}" class="form-control" >                                                                              
+                                </h:inputText>
+                            </td>
+                            <td>
+                                <strong><h:outputLabel id="lblSolicitante" value="Solicitante *:" for="solicitante"></h:outputLabel></strong>
+                            </td>
+                            <td>
+                                <h:inputText id="txtSolicitante" label="Solicitante" value="#{reactivacionBecaBeans.detalleBecarioDTO.solicitante}" 
+                                             class="form-control"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong><h:outputLabel id="lblAdcripcion" value="Adscripción *:" for="adscripción"></h:outputLabel></strong>
+                            </td>
+                            <td>
+                                <h:inputText id="txtAdcripcion" label="Adscripción" value="#{reactivacionBecaBeans.detalleBecarioDTO.adscripcion}" 
+                                             class="form-control"/>
+                            </td>
+                            <td>
+                                <strong><h:outputLabel id="lblZona" value="Zona *:" for="zona"></h:outputLabel></strong>
+                            </td>
+                            <td>
+                                <h:selectOneMenu id="cmbxZona" label="Zona" value="#{reactivacionBecaBeans.detalleBecarioDTO.cat_zonasIdDTO}" 
+                                                 class="cmbxzona form-control">
+                                    <f:selectItem itemLabel="---Seleccione la Zona---" itemValue=""></f:selectItem>
+                                    <f:selectItems value="#{reactivacionBecaBeans.obtenerZonas()}" var="itemZonas" itemLabel="#{itemZonas.nombre}" 
+                                                   itemValue="#{itemZonas.id}"/>
+                                </h:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong><h:outputLabel value="Observaciones :" for="observaciones"></h:outputLabel></strong>
+                            </td>
+                            <td>
+                                <h:inputTextarea id="txtObservacion" label="Observaciones:" value="#{reactivacionBecaBeans.detalleBecarioDTO.observacion}" class="combobox form-control"/>
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <h:link a:href="#!" type="button" onclick="validarCamposReactivacionBeca(this)"  class="btn btn-primary btn-sm" title="Reactivar Becarios Dados de Baja" id="btnReactivarBecario"><span class="glyphicon glyphicon-floppy-open" aria-hidden="true"> Confirmar</span></h:link>                                                                     
+                                        <h:commandButton style="display: none" id="reactivarBecario" actionListener="#{reactivacionBecaBeans.altaDetalleBecario()}" value="Confirma"></h:commandButton>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:commandButton class="btn btn-danger btn-sm" value="Cancelar" action="#{reactivacionBecaBeans.salida()}"></h:commandButton>                                
+                                    </div>
+
+                                </div>
+                            </td>
+
+                        </tr>
+                    </table>                                                              
+                </h:form>
+            </ui:define>
+        </ui:composition>
+        <h:outputScript name="js/chosen.jquery.js"/>
+        <script>
+           $('.cmbxnivelbeca').chosen();
+           $('.cmbxtipobeca').chosen();
+           $('.cmbxzona').chosen();
+       </script>
+    </h:body>
+</html>

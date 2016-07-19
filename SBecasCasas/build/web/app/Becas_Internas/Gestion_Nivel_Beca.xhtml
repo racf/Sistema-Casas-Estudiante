@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/dataTables.min.css"/>
+        <h:outputScript name="jquery/jquery.min.js"/>
+        <h:outputScript name="js/dataTables.min.js"/>
+        <h:outputScript name="js/bootbox.min.js"/>
+        <h:outputScript name="js/Becas_Internas/Cat_Nivel_Beca.js" />
+        <h:outputScript name="js/script.js"/>"
+    </h:head>
+    <h:body>
+
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h:form id="formNivelBecas">
+                            <h:link a:href="#!" type="button" onclick="formularioAltaNivelBecas();" class="btn btn-success btn-lg" title="Agregar Nivel de Beca" id="AltaNivelBeca"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></h:link>
+                            <h:inputHidden id="NombreNivelBeca" value="#{gestionNivelBeca.nivelBeca.nombre}" ></h:inputHidden>
+                            <h:commandButton action="#{gestionNivelBeca.agregarNivel()}" id="AgregarNivel" style="display:none ">
+                                
+                            </h:commandButton>
+                        </h:form>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group-sm"><h4><label class="label label-primary">Buscar Nivel de Beca</label></h4></div>
+                        <h:form id="form">
+                            <h:dataTable id="table" class="display" value="#{gestionNivelBeca.lista}" var="elemento">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Clave"></h:outputLabel>
+                                    </f:facet>
+                                    #{elemento.id}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Nombre"></h:outputLabel>
+                                    </f:facet>
+                                    #{elemento.nombre}
+                                </h:column>
+                                <h:column>   
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Acciones"></h:outputLabel>
+                                    </f:facet>
+                                    <h:link a:href="#!" type="button" onclick="eliminarNivelBeca(this, #{elemento.id});" class="btn btn-danger btn-sm" title="Eliminar Nivel de Beca" id="BajaNivelBeca"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></h:link>
+                                    <h:inputHidden id="idElemento" value="#{elemento.id}" />
+                                    <h:commandButton action="#{gestionNivelBeca.eliminarNivel(elemento)}" id="EliminarNivel" style="display:none ">
+                                        
+                                    </h:commandButton>
+                                    &nbsp;
+                                    <h:inputHidden id="nombreNivel" value="#{elemento.nombre}"/>
+                                    <h:link a:href="#!" type="button" onclick="editarNivelBeca(this)" class="btn btn-info btn-sm" title="Editar Nivel de Beca" id="EditarNivelBeca"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></h:link>
+                                    <h:commandButton action="#{gestionNivelBeca.editar(elemento)}" id="EditarNivel" style="display:none ">
+
+                                    </h:commandButton>
+                                </h:column>
+                            </h:dataTable> 
+                        </h:form>
+                    </div>
+
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
