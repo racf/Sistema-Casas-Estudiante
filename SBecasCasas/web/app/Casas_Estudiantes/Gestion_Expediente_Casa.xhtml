@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+
+        <h:outputStylesheet name="css/dataTables.min.css"/>
+        <h:outputScript name="jquery/jquery.min.js"/>
+        <h:outputScript name="js/dataTables.min.js"/>
+        <h:outputScript name="js/bootbox.min.js"/>
+        <h:outputScript name="js/Casas_Estudiantes/Gestion_Expediente_Casa.js"/>
+        <h:outputScript name="js/script.js"/>
+
+    </h:head>
+
+    <body>
+
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active"><a href="#!">Expediente de la Casa</a></li>
+                </ul>
+                <h:panelGroup layout="block" class="panel panel-default">
+                    <h:panelGroup layout="block" class="panel-body">
+                        <h:form id="form">
+                            <h:panelGroup layout="block" style="padding-bottom: 10" a:align="left">
+                                <h:link id="agregarExpediente" value="Agregar Expediente" outcome="/app/Casas_Estudiantes/Agregar_Expediente_Casa.xhtml" 
+                                        class="btn btn-success" >
+                                    &nbsp;<span class="glyphicon glyphicon-plus-sign"></span>
+                                </h:link>
+                            </h:panelGroup>
+                            <br/>
+                            <h:dataTable id="table" class="display" style="font-size: 12px" value="#{casas_gestionExpedienteCasa.expedientes}" var="elemento">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Clave"></h:outputLabel>
+                                    </f:facet>
+                                    <h:outputText value="#{elemento.id}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Arrendatario"></h:outputLabel>
+                                    </f:facet>
+                                    <h:outputText value="#{elemento.tbl_arrendatarioDTO.nombre}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Casa"></h:outputLabel>
+                                    </f:facet>
+                                    <h:outputText value="#{elemento.tbl_casaestudianteDTO.nombre}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Arrendador"></h:outputLabel>
+                                    </f:facet>
+                                    <h:outputText value="#{elemento.tbl_arrendadorDTO.nombre} #{elemento.tbl_arrendadorDTO.apellidoPat} #{elemento.tbl_arrendadorDTO.apellidoMat}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Fecha Inicial"></h:outputLabel>
+                                    </f:facet>
+                                    <h:outputText value="#{elemento.fechaInicialArrendamiento}" >
+                                        <f:convertDateTime locale="es-mx" dateStyle="long" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Fecha Final"></h:outputLabel>
+                                    </f:facet>
+                                    <h:outputText value="#{elemento.fechaFinalArrendamiento}" >
+                                        <f:convertDateTime locale="es-mx" dateStyle="long" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputLabel value="Opciones"></h:outputLabel>
+                                    </f:facet>
+                                    <div class="form-inline">
+                                        <h:commandLink id="editar" class="btn-warning btn-sm" action="#{casas_gestionExpedienteCasa.editarExpediente(elemento.id)}">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </h:commandLink>&nbsp;
+                                        <h:commandLink id="ver" class="btn-primary btn-sm" action="#{casas_gestionExpedienteCasa.verExpediente(elemento.id)}">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </h:commandLink>&nbsp;
+                                        <h:link id="eliminar" class="btn-danger btn-sm" a:href="#!" 
+                                                       onclick="eliminarExpediente('#{elemento.tbl_casaestudianteDTO.nombre}', this)">
+                                            <span class="glyphicon glyphicon-remove-sign"></span>
+                                        </h:link>
+                                        <h:commandLink id="eliminarExpediente" action="#{casas_gestionExpedienteCasa.eliminarExpediente(elemento)}"
+                                                       style="display: none">
+                                            <f:ajax 
+                                                render="table"
+                                                />
+                                        </h:commandLink>
+                                    </div>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

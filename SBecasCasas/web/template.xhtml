@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/bootstrap.css"/>
+        <h:outputStylesheet name="css/bootstrap-combobox.css"/>
+        <h:outputStylesheet name="css/dashboard.css"/>
+        <h:outputStylesheet name="css/font-awesome.css"/>
+        <style>
+
+            #menu ul{
+                background: #2F406A;
+                height: 100%;
+                margin-bottom: 0px;
+            }
+            .color{
+                color: white;
+                font-size: 14px;
+            }
+            .error{
+                color: red;
+            }
+        </style>               
+        <title>Proyectos Becas-Casas</title>
+    </h:head>
+
+    <h:body>
+
+        <nav class="navbar-fixed-top">
+            <div class="container-fluid">
+                <h:graphicImage class="img-responsive" name="img/encab.png" alt="Header Image" />
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <h:form>
+                    <div class="col-sm-3 col-md-2 sidebar">
+                        <ul class="nav nav-sidebar">
+                            <li><h:link class="color" outcome="/app/inicio.xhtml"><i class="fa fa-dashboard"></i> Inicio</h:link></li>
+                            <h:panelGroup layout="block" rendered="#{usuario.usuario.cat_tipousuarioDTO == 1 || usuario.usuario.cat_tipousuarioDTO == 2}" >
+                                <ul class="nav nav-list">
+                                    <li class="nav-header"  data-toggle="collapse" data-target="#test"> <a class="color">
+                                            <i class="fa fa-home fa-spin"></i> Casas de Estudiantes
+                                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                                        </a>
+                                        <ul class="nav nav-list collapse" id="test">
+                                            <li><h:link class="color" style="padding-left: 15%;" outcome="/app/Casas_Estudiantes/Zonas.xhtml"><i class="glyphicon glyphicon-globe"></i> Gestión de Zonas</h:link></li>
+                                            <li><h:link class="color" style="padding-left: 15%;" outcome="/app/Casas_Estudiantes/LenguasIndigenas.xhtml"><i class="glyphicon glyphicon-align-center"></i> Gestión Lengua Indigena</h:link></li>
+                                            <li><h:link class="color" style="padding-left: 15%;" outcome="/app/Casas_Estudiantes/GestionResponsableZona.xhtml" ><i class="fa fa-user"></i> Gestión Responsable de Zona</h:link></li>
+                                            <li><h:link class="color" style="padding-left: 15%;" outcome="/app/Casas_Estudiantes/Arrendatario.xhtml"><i class="fa fa-user-md"></i> Gestión Arrendatario</h:link></li>
+                                            <li><h:link class="color" style="padding-left: 15%;" outcome="/app/Casas_Estudiantes/Arrendador.xhtml"><i class="glyphicon glyphicon-user"></i> Gestión Arrendador</h:link></li>
+                                            <li><h:link class="color" style="padding-left: 15%;"><i class="fa fa-home"></i> Gestión Casa Estudiante</h:link></li>
+                                            <li><h:link class="color" style="padding-left: 15%;" outcome="/app/Casas_Estudiantes/GestionRepresentanteCasa.xhtml"><i class="fa fa-users"></i> Gestión Representante</h:link></li>
+                                            <li><h:link class="color" style="padding-left: 15%;" outcome="/app/Casas_Estudiantes/Gestion_Expediente_Casa.xhtml"><i class="glyphicon glyphicon-folder-open"></i> Gestión Expediente Casa</h:link></li>
+                                            <li><h:link class="color" style="padding-left: 15%;" outcome="/app/Casas_Estudiantes/Gestion_Renovacion_Contrato.xhtml"><i class="glyphicon glyphicon-file"></i> Gestión Renovación Contrato</h:link></li>
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{usuario.usuario.cat_tipousuarioDTO == 1 || usuario.usuario.cat_tipousuarioDTO == 3}" >
+                                <ul class="nav nav-list">
+                                    <li class="nav-header"  data-toggle="collapse" data-target="#menuBecasInternas"> 
+                                        <a class="color">
+                                            <i class="fa fa-credit-card fa-spin"></i> Becas Internas
+                                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                                        </a>
+                                        <ul class="nav nav-list collapse" id="menuBecasInternas">
+                                            <li><h:link class="color" style="padding-left: 15%;" outcome="/app/Becas_Internas/Gestion_Tipo_Beca.xhtml"><i class="fa fa-pencil-square"></i> Gestión Tipo de Beca</h:link></li>
+                                            <li><h:link class="color" style="padding-left: 15%;" outcome="/app/Becas_Internas/Gestion_Nivel_Beca.xhtml"><i class="fa fa-th-list"></i> Gestión Nivel de Beca</h:link></li>
+                                            <li><h:link class="color" style="padding-left: 15%;" outcome="/app/Becas_Internas/Gestion_Beca.xhtml"><i class="glyphicon glyphicon-file"></i> Gestión de Beca</h:link></li>
+                                            <li><h:link class="color" style="padding-left: 15%;"><i class="glyphicon glyphicon-eye-open"></i> Gestión Consultas</h:link></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{usuario.usuario.cat_tipousuarioDTO == 1 || usuario.usuario.cat_tipousuarioDTO == 4}" >
+                                <ul class="nav nav-list">
+                                    <li class="nav-header"  data-toggle="collapse" data-target="#menuBecasExternas"> 
+                                        <a class="color">
+                                            <i class=" fa fa-briefcase fa-spin"></i> Becas Extenas
+                                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                                        </a>
+                                        <ul class="nav nav-list collapse" id="menuBecasExternas">
+                                            <li><h:link class="color" style="padding-left: 15%;"><i class="glyphicon glyphicon-calendar"></i> Gestión Año de Beca</h:link></li>
+                                            <li><h:link class="color" style="padding-left: 15%;"><i class="fa fa-th-list"></i> Gestión Nivel de Estudio</h:link></li>
+                                            <li><h:link class="color" style="padding-left: 15%;"><i class="fa fa-list-alt"></i> Gestión Tipo de Beca</h:link></li>
+                                            <li><h:link class="color" style="padding-left: 15%;"><i class="fa fa-list-ol"></i> Gestión Becas Superior</h:link></li>
+                                            <li><h:link class="color" style="padding-left: 15%;"><i class="fa fa-list-ul"></i> Gestión Becas Medio Superior</h:link></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{usuario.usuario.cat_tipousuarioDTO == 1 || usuario.usuario.cat_tipousuarioDTO == 5}" >
+                                <ul class="nav nav-list">
+                                    <li class="nav-header"  data-toggle="collapse" data-target="#representante"> 
+                                        <a class="color">
+                                            <i class="glyphicon glyphicon-user"></i> Representante
+                                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                                        </a>
+                                        <ul class="nav nav-list collapse" id="representante">
+                                            <li><h:commandLink class="color" style="padding-left: 45px;"><i class="glyphicon glyphicon-folder-open"></i> Expediente</h:commandLink></li>
+                                            <li><h:commandLink class="color" style="padding-left: 45px;"><i class="glyphicon glyphicon-file"></i> Contratos</h:commandLink></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </h:panelGroup>
+                            <ul class="nav nav-list">
+                                <li class="nav-header"  data-toggle="collapse" data-target="#user"> 
+                                    <a class="color">
+                                        <i class="glyphicon glyphicon-user"></i> Usuario
+                                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                                    </a>
+                                    <ul class="nav nav-list collapse" id="user">
+                                        <li><h:commandLink class="color" style="padding-left: 45px;" action="#{usuario.logout()}"><i class="glyphicon glyphicon-remove-sign"></i> Cerrar Sesión</h:commandLink>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </ul>
+                    </div>
+
+                </h:form>
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <div id="page-content-wrapper">
+                        <div id="content">
+                            <ui:insert name="content">Content Template</ui:insert>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar-fixed-bottom">
+            <div class="container-fluid" >
+                <h:graphicImage class="img-responsive" name="img/pie.png" alt="Footer Image" />
+            </div>
+        </nav>
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <h:outputScript name="jquery/jquery.min.js"/>
+        <h:outputScript name="js/bootstrap.min.js"/>
+ 
+    </h:body>
+
+</html>

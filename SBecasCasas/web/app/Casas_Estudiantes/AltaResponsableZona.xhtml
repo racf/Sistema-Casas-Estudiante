@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+        <h:outputScript name="jquery/jquery.min.js"/>
+       <h:outputScript name="js/Casas_Estudiantes/Tbl_Responsable.js"/>
+        <h:outputStylesheet name="css/chosen.css"/> 
+    </h:head>
+
+    <h:body>
+
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Alta Responsable de Zona</strong></h3>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div id="messageAltaResponsableZona"></div>
+                        <h:form id="formAltaResponsableZona">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <h:outputLabel value="Num. Empleado * " id="lblNumeroEmpleado"></h:outputLabel>
+                                    <h:inputText a:type="number" a:min="0" validator="existeResponsableExternoValidate" id="txtNumEmpleado" a:autofocus="true" value="#{altaResponsableZonaBeans.responsableDTO.id}" class="form-control"></h:inputText>                                    
+                                </div>
+                                <div class="form-group">                                   
+                                    <h:commandButton class="btn btn-default btn-success" value="Buscar..." action="#{altaResponsableZonaBeans.obtenerDatosExternosPersonal()}">                                      
+                                    </h:commandButton>
+                                </div>
+                                <div class="form-group">
+                                    <h4><h:message class="label label-info" style="color: red" for="txtNumEmpleado"/></h4>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel value="Nombre *"></h:outputLabel>                                
+                                <h:inputText readonly="true" value="#{altaResponsableZonaBeans.responsableDTO.nombre}" class="form-control"></h:inputText>
+                                <h:inputHidden id="textNombre" value="#{altaResponsableZonaBeans.responsableDTO.nombre}"/>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel value="Apellido Paterno *"></h:outputLabel>
+                                <h:inputText readonly="true" value="#{altaResponsableZonaBeans.responsableDTO.apellidoPat}" class="form-control"/>
+                                <h:inputHidden id="txtApellidoPat" value="#{altaResponsableZonaBeans.responsableDTO.apellidoPat}"/>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel value="Apellido Materno *"></h:outputLabel>
+                                <h:inputText readonly="true" value="#{altaResponsableZonaBeans.responsableDTO.apellidoMat}" class="form-control"/>
+                                <h:inputHidden id="txtApellidoMat" value="#{altaResponsableZonaBeans.responsableDTO.apellidoMat}"/>
+                            </div>                            
+                            <div class="form-group">
+                                <h:outputLabel value="Email "></h:outputLabel>
+                                <h:inputText a:type="email" id="txtEmail" value="#{altaResponsableZonaBeans.responsableDTO.email}" class="form-control"></h:inputText>
+                            </div>                            
+                            <div class="form-group">
+                                <h:outputLabel value="Zona *" id="lblcmbxZona" for="zona"></h:outputLabel> 
+                                <h:selectOneMenu id="cmbxZona" value="#{altaResponsableZonaBeans.responsableDTO.cat_zonasIdDTO}" class="cmbxzona form-control">
+                                    <f:selectItem itemLabel="---Seleccione la Zona---" itemValue=""></f:selectItem>
+                                    <f:selectItems value="#{altaResponsableZonaBeans.obtenerZonas()}" var="itemZonas" itemLabel="#{itemZonas.nombre}" itemValue="#{itemZonas.id}"></f:selectItems>
+                                </h:selectOneMenu>
+                            </div>
+                            <h:inputHidden id="txtAuxNumEmpleado" value="#{altaResponsableZonaBeans.auxResponsableId}" />
+                            <br/>
+                            <div align="right">
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <h:link a:href="#!" type="button"  class="btn btn-primary btn-sm" onclick="validarCamposAltaResponsableZona(this, #{altaResponsableZonaBeans.validarResponsableExiste(altaResponsableZonaBeans.responsableDTO.id)})" title="Confirmar Alta Responsable Zona" id="btnAltaResponsable"><span aria-hidden="true"><strong>Confirmar</strong></span></h:link>
+                                        <h:commandButton id="btnAltaResponsable1" style="display: none" action="#{altaResponsableZonaBeans.altaResponsableZona()}" value="Confirma">
+                                           <!--<f:ajax 
+                                               execute="txtNombre txtApellidoPat txtApellidoMat"
+                                               render="@form"/>-->
+                                        </h:commandButton>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:button class="btn btn-danger btn-sm" value="Cancelar" outcome="GestionResponsableZona.xhtml"></h:button>                                
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+        <h:outputScript name="js/chosen.jquery.js"/>
+        <script>
+           $('.cmbxzona').chosen();
+       </script>
+    </h:body>
+</html>
