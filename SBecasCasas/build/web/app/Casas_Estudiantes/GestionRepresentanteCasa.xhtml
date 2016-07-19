@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet name="css/dataTables.min.css"/>
+        <h:outputScript name="jquery/jquery.min.js"/>
+        <h:outputScript name="js/dataTables.min.js"/>
+        <h:outputScript name="js/Casas_Estudiantes/Tbl_Representante.js" />
+        <h:outputScript name="js/script.js"/>
+        <h:outputScript name="js/bootbox.min.js"/>
+    </h:head>    
+
+    <h:body>
+
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+                <div id="page-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#gestionRepresentanteCasa" data-toggle="tab"><span class="fa fa-user"></span>Gestión Representantes Casas</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active table-responsive" id="gestionRepresentanteCasa">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="panel panel-default">                                                   
+                                                    <div class="panel-body">
+                                                        <h:link a:href="AltaRepresentanteCasa.xhtml" type="button" class="btn btn-success btn-lg" title="Alta Representante de Casa" id="altaRepresentante"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></h:link>
+                                                    </div>
+                                                </div> 
+                                                <div class="panel panel-default">
+                                                    <div class="panel-body">
+                                                        <h:link a:href="VerBajaRepresentanteCasa.xhtml" type="button" class="btn btn-danger btn-lg" title="Ver Representantes Dados de Baja" id="verRepresentanteBaja"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></h:link>
+                                                    </div>
+                                                </div>
+                                                <div id="messageBajaRepresentante"></div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-body">
+                                                        <div class="form-group-sm"><h4><label class="label label-primary">Buscar Representante</label></h4></div>
+                                                        <h:form id="form">
+                                                            <h:dataTable id="table" value="#{gestionRepresentanteCasaBeans.obtenerDatos()}" var="lstRepresentante" class="display table-condensed">
+                                                               <h:column>
+                                                                    <f:facet name="header">
+                                                                        <div align="center">
+                                                                            <h:outputLabel value="Matricula"></h:outputLabel>
+                                                                        </div>
+                                                                    </f:facet>
+                                                                   <h:outputLabel value="#{lstRepresentante.matricula}"/>
+                                                               </h:column>
+                                                               <h:column>
+                                                                    <f:facet name="header">
+                                                                        <div align="center">
+                                                                            <h:outputLabel value="Nombre"></h:outputLabel>
+                                                                        </div>
+                                                                    </f:facet>
+                                                                   <h:outputLabel value="#{lstRepresentante.nombre} #{lstRepresentante.apellidoPat} #{lstRepresentante.apellidoMat}" />                                                                   
+                                                               </h:column>
+                                                               <h:column>
+                                                                    <f:facet name="header">
+                                                                        <div align="center">
+                                                                            <h:outputLabel value="Tipo Representante"></h:outputLabel>
+                                                                        </div>
+                                                                    </f:facet>
+                                                                   <h:outputLabel value="#{lstRepresentante.tipoRepresentanteDTO.nombre}"/>
+                                                               </h:column>
+                                                               <h:column>
+                                                                    <f:facet name="header">
+                                                                        <div align="center">
+                                                                            <h:outputLabel value="Telefono"></h:outputLabel>
+                                                                        </div>
+                                                                    </f:facet>
+                                                                   <h:outputLabel value="#{lstRepresentante.telefono}"/>
+                                                               </h:column>
+                                                               <h:column>
+                                                                    <f:facet name="header">
+                                                                        <div align="center">
+                                                                            <h:outputLabel value="Email"></h:outputLabel>
+                                                                        </div>
+                                                                    </f:facet>
+                                                                   <h:outputLabel value="#{lstRepresentante.email}"/>
+                                                               </h:column>
+                                                               <h:column>                                                                   
+                                                                    <f:facet name="header">
+                                                                        <div align="center">
+                                                                            <h:outputLabel value="Opciones"></h:outputLabel>
+                                                                        </div>
+                                                                    </f:facet>
+                                                                    
+                                                                   <div class="form-inline" align="center">
+                                                                            <div class="form-group">
+                                                                                <h:link a:href="#!" type="button"  class="btn btn-warning btn-sm" onclick="obtenerIdModRepresentante(this)" title="Modificar Representante" id="btnModificarRepresentante"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></h:link>                                                                
+                                                                                <h:commandButton style="display: none" id="btnModificarRepresentante1" value="Submit" action="#{gestionRepresentanteCasaBeans.outcomeModRepresentante(lstRepresentante.matricula)}"></h:commandButton>
+                                                                            </div>
+                                                                            <div class="form-group">                                                                                
+                                                                                <h:link a:href="#!" type="button"  class="btn btn-primary btn-sm" onclick="obtenerIdVerRepresentante(this)" title="Ver Representante" id="btnVerRepresentante"><span class="fa fa-search-plus" aria-hidden="true"></span></h:link>                                                                    
+                                                                                <h:commandButton style="display: none" id="btnVerRepresentante1" value="Submit" action="#{gestionRepresentanteCasaBeans.outcomeVerRepresentante(lstRepresentante.matricula)}"></h:commandButton>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <h:link a:href="#!" type="button"  class="btn btn-danger btn-sm" onclick="confirmBajaRepresentante(this, #{lstRepresentante.matricula})" title="Eliminar Representante" id="btnEliminarRepresentante"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></h:link>                                                                 
+                                                                                <h:commandButton style="display: none" id="btnEliminarRepresentante1" value="Submit" action="#{gestionRepresentanteCasaBeans.bajaRepresentante(lstRepresentante)}"></h:commandButton>
+                                                                            </div>
+                                                                        </div>                                                                   
+                                                               </h:column>                                                                
+                                                            </h:dataTable>                                                                                                                                                                                                                                                                
+                                                        </h:form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

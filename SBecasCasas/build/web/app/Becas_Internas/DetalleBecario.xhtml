@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>    
+        <h:outputScript name="jquery/jquery.min.js"/>
+        <h:outputScript name="js/Becas_Internas/Tbl_DetalleBecario.js"/>       
+    </h:head>
+    <h:body>
+
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Detalle Becario</strong></h3>
+                    </div>
+                </div>
+                <h:form id="formDetalleBecario">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <fieldset class="fieldset">
+                                <legend><h5><strong>Detalle del Becario</strong></h5></legend>
+                                <table class="table-condensed table-striped table-hover">
+                                    <tr>
+                                        <td>
+                                            <strong><h:outputLabel value="Numero ID:" for="numeroID"></h:outputLabel></strong>                                  
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{detalleBecarioBeans.becarioDTO.id}"></h:outputText>
+                                        </td>
+                                        <td>
+                                            <strong><h:outputLabel value="Fecha de Registro:" for="fechaRegistro"></h:outputLabel></strong>                                   
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{detalleBecarioBeans.becarioDTO.fechaRegistro}"></h:outputText>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong><h:outputLabel value="Nombre:" for="nombre"></h:outputLabel></strong>                                   
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{detalleBecarioBeans.becarioDTO.nombre} #{reactivacionBecaBeans.becarioDTO.apellidoPat} #{reactivacionBecaBeans.becarioDTO.apellidoMat}"></h:outputText>
+                                        </td>
+                                        <td>
+                                            <strong><h:outputLabel value="Telefono:" for="telefono"></h:outputLabel></strong>                                   
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{detalleBecarioBeans.becarioDTO.telefono}"></h:outputText>
+                                        </td>                                    
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong><h:outputLabel value="CURP:" for="curp"></h:outputLabel></strong>                                     
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{detalleBecarioBeans.becarioDTO.curp}"></h:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </fieldset>
+                        </div>                       
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group-sm"><h4><label class="label label-danger">Detalle de las becas del Becario:</label></h4></div>
+                        </div> 
+                        <h:dataTable class="table table-condensed table-hover table-bordered table-striped" value="#{detalleBecarioBeans.obtenerDatos(detalleBecarioBeans.getBecarioParam())}" var="lstDetalleBecario">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputLabel value="ID"></h:outputLabel>
+                                </f:facet>
+                                <h:outputLabel value="#{lstDetalleBecario.id}"/>
+                            </h:column>                              
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputLabel value="Numero ID"></h:outputLabel>
+                                </f:facet>
+                                <h:outputLabel value="#{lstDetalleBecario.tbl_becarioIdDTO}"/>
+                            </h:column>                             
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputLabel value="Fecha Inical"></h:outputLabel>
+                                </f:facet>
+                                <h:outputLabel value="#{lstDetalleBecario.fechaInicioBeca}"/>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputLabel value="Fecha Final"></h:outputLabel>
+                                </f:facet>
+                                <h:outputLabel value="#{lstDetalleBecario.fechaFinBeca}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputLabel value="Área"></h:outputLabel>
+                                </f:facet>
+                                <h:outputLabel value="#{lstDetalleBecario.area}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputLabel value="Solicitante"></h:outputLabel>
+                                </f:facet>
+                                <h:outputLabel value="#{lstDetalleBecario.solicitante}"/>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputLabel value="Adscripción"></h:outputLabel>
+                                </f:facet>
+                                <h:outputLabel value="#{lstDetalleBecario.adscripcion}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputLabel value="Nivel Beca"></h:outputLabel>
+                                </f:facet>
+                                <h:outputLabel value="#{lstDetalleBecario.nivelBecaDTO.nombre}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputLabel value="Opciones"></h:outputLabel>
+                                </f:facet>
+                                <div class="form-inline">                                                                    
+                                    <div class="form-group">
+                                        <h:link a:href="#!" type="button"  class="btn btn-primary btn-sm" onclick="obtenerDetalleBecarioID(this)" title="Ver Detalle de Beca del Becario" id="btnVerDetalleBecario"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></h:link>
+                                        <h:commandButton style="display: none" id="btnVerDetalleBeca" action="#{detalleBecarioBeans.outcomeVerDetalleBecario(lstDetalleBecario.id)}"></h:commandButton> 
+                                    </div>
+                                    <div class="form-group">
+                                        <h:link a:href="#!" type="button"  class="btn btn-danger btn-sm" title="Eliminar Detalle de Beca del Becario" id="btnEliminarDetalleBecario"><span class="fa fa-trash-o fa-lg" aria-hidden="true"></span></h:link>
+                                    </div>
+                                </div>                                
+                            </h:column>                             
+                        </h:dataTable>
+                    </div>  
+                    <div class="form-group">
+                        <h:commandButton value="Cancelar" action="#{detalleBecarioBeans.salida()}"></h:commandButton>                                
+                    </div>                    
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

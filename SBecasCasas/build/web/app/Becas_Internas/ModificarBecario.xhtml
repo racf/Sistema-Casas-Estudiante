@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputScript name="jquery/jquery.min.js"/>
+        <h:outputScript name="js/Becas_Internas/Tbl_Becario.js"/>
+        <h:outputScript name="js/bootbox.min.js"/>
+    </h:head>
+    
+    <h:body>
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Modificar Becario</strong></h3>
+                    </div>
+                </div>
+                <div id="messageModificarBecario"></div>
+                <div class="form-group-sm"><h4><label class="label label-danger">Datos Personales del Becario: </label></h4></div> 
+                <h:form id="formModificarBecario">                                    
+                    <table class="table-condensed">
+                        <tr>
+                            <td>
+                                <strong><h:outputLabel value="Numero ID :" id="numeroID" for="numeroID"/></strong>
+                            </td>
+                            <td>
+                                <h:inputText disabled="true" id="txtModBecarioId" value="#{modificarBecarioBeans.becarioDTO.id}" class="form-control"/>
+                            </td>
+                            <td>
+                                <strong><h:outputLabel value="Fecha de Registro :" id="fechaRegistro" for="fechaRegistro"/></strong>
+                            </td>
+                            <td>
+                                <h:inputText disabled="true" id="txtModBecarioFechaRegistro" value="#{modificarBecarioBeans.becarioDTO.fechaRegistro}" class="form-control"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong><h:outputLabel value="Nombre :" id="nombre" for="nombre"/></strong>  
+                            </td>
+                            <td>
+                                <h:inputText disabled="true" id="txtModBecarioNombre" value="#{modificarBecarioBeans.becarioDTO.nombre}" class="form-control"/> 
+                            </td>
+                            <td>
+                                <strong><h:outputLabel value="Apellido Paterno :" id="apellidoPaterno" for="apellidoPaterno"/></strong>  
+                            </td>
+                            <td>
+                                <h:inputText disabled="true" id="txtModBecarioApellidoPaterno" value="#{modificarBecarioBeans.becarioDTO.apellidoPat}" class="form-control"/> 
+                            </td>                            
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong><h:outputLabel  value="Apellido Materno :" id="apellidoMaterno" for="apellidoMaterno"/></strong>  
+                            </td>
+                            <td>
+                                <h:inputText disabled="true" id="txtModBecarioApellidoMaterno" value="#{modificarBecarioBeans.becarioDTO.apellidoMat}" class="form-control"/> 
+                            </td>
+                            <td>
+                                <strong><h:outputLabel value="CURP :" id="curp" for="curp"/></strong>  
+                            </td>
+                            <td>
+                                <h:inputText disabled="true" id="txtModBecarioCurp" value="#{modificarBecarioBeans.becarioDTO.curp}" class="form-control"/> 
+                            </td>                            
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong><h:outputLabel value="Telefono :" id="telefono" for="telefono"/></strong>  
+                            </td>
+                            <td>
+                                <h:inputText maxlength="10"  a:type="number" a:min="0" id="txtModBecarioTelefono" value="#{modificarBecarioBeans.becarioDTO.telefono}" class="form-control">                                    
+                                </h:inputText> 
+                                
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td>
+                                
+                            </td>                            
+                        </tr>
+                        <tr>
+                            <td>
+                                
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td>
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <h:link a:href="#!" type="button"  class="btn btn-primary btn-sm" onclick="confirmarModificarBecario(this)" title="Modificar datos del becario" id="btnConfModBecario"><span aria-hidden="true"><strong>Confirmar</strong></span></h:link>                                                                     
+                                        <h:commandButton style="display: none" id="btnConfModBecario1" actionListener="#{modificarBecarioBeans.modificarBecario()}" value="Confirma"></h:commandButton>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:commandButton value="Cancelar" class="btn btn-danger btn-sm" action="#{bajaBecarioBeans.salida()}"></h:commandButton>                                
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>                    
+                </h:form>                
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

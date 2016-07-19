@@ -1,0 +1,236 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> 
+       <h:outputScript name="jquery/jquery.min.js"/>
+       <h:outputScript name="js/Casas_Estudiantes/Tbl_Representante.js"/>
+       <h:outputStylesheet name="css/chosen.css"/>       
+    </h:head> 
+    <h:body>
+        <ui:composition template="./../../template.xhtml">
+            <ui:define name="content">
+                <div id="page-wrapper" class="table-responsive">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default"> 
+                                    <div class="panel-body">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" align="center">
+                                                <h3 class="panel-title"><strong>Modificar Representante de Casa</strong></h3>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="panel panel-default"> 
+                                    <div class="panel-body">
+                                        <div id="messageModRepresentante"></div>
+                                        <h:form id="formModRepresentante">
+                                            <div class="form-group">
+                                                <h4><h:message class="label label-info" style="color: red" for="txtMatricula"/></h4>
+                                            </div> 
+                                            <table class="table-condensed">
+                                                <tr>
+                                                    <td>
+                                                        <h:outputLabel value="Matricula *:" for="Matricula"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-inline">
+                                                            <div class="form-group"> 
+                                                                <div class="input-group custom-search-form tablaelemtbuscar">                                                                
+                                                                    <h:inputText id="txtMatricula1" readonly="true" a:type="number" a:min="0" class="form-control" label="Numero ID" value="#{modificarRepresentanteCasaBeans.representanteDTO.matricula}"></h:inputText>                                                                 
+                                                                    <h:inputHidden id="txtMatricula" value="#{modificarRepresentanteCasaBeans.representanteDTO.matricula}"/>
+                                                                    <span class="input-group-btn">
+                                                                        <h:link a:href="#!" type="button" class="btn btn-default form-control" id="btnBuscarRepresentanteCasa" onclick="buscarRepresentanteMod(this)" title="Buscar Para Actualizar Datos...">
+                                                                            <i class="fa fa-search"></i>            
+                                                                        </h:link>
+                                                                    </span>
+                                                                    <h:commandButton style="display: none" id="btnBuscarRepresentanteCasa1" value="Buscar" actionListener="#{modificarRepresentanteCasaBeans.obtenerDatosAlumnoExterno()}"/>                                                                                                                                                           
+                                                                </div>
+                                                            </div>                                                                                                                        
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <h:outputLabel value="Nombre :" for="nombre"></h:outputLabel>
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText class="form-control" readonly="true" id="txtNombre1" label="nombre" value="#{modificarRepresentanteCasaBeans.representanteDTO.nombre}"/>
+                                                        <h:inputHidden id="txtNombre" value="#{modificarRepresentanteCasaBeans.representanteDTO.nombre}"/>
+                                                    </td>                                            
+                                                </tr>
+                                                <tr>
+                                                   <td>
+                                                        <h:outputLabel value="Apellido Paterno :" for="apellidoPaterno"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText class="form-control" readonly="true" id="txtApellidoPaterno1" label="apellidoPaterno" value="#{modificarRepresentanteCasaBeans.representanteDTO.apellidoPat}"/>
+                                                        <h:inputHidden id="txtApellidoPaterno" value="#{modificarRepresentanteCasaBeans.representanteDTO.apellidoPat}"/>
+                                                    </td> 
+                                                    <td>
+                                                        <h:outputLabel value="Apellido Materno :" for="apellidoMaterno"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText class="form-control" readonly="true" id="txtApellidoMaterno1" label="apellidoMaterno" value="#{modificarRepresentanteCasaBeans.representanteDTO.apellidoMat}"/>
+                                                        <h:inputHidden id="txtApellidoMaterno" value="#{modificarRepresentanteCasaBeans.representanteDTO.apellidoMat}"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                   <td>
+                                                        <h:outputLabel value="Sexo :" for="sexo"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText class="form-control" readonly="true" id="txtSexo1" label="sexo" value="#{modificarRepresentanteCasaBeans.representanteDTO.sexo}"/>
+                                                        <h:inputHidden id="txtSexo" value="#{modificarRepresentanteCasaBeans.representanteDTO.sexo}"/>
+                                                    </td> 
+                                                    <td>
+                                                        <h:outputLabel value="Estado Civil :" for="estadoCivil"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText class="form-control" readonly="true" id="txtEstadoCivil1" label="estadoCivil" value="#{modificarRepresentanteCasaBeans.representanteDTO.estadoCivil}"/>
+                                                        <h:inputHidden id="txtEstadoCivil" value="#{modificarRepresentanteCasaBeans.representanteDTO.estadoCivil}"/>                                                       
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <h:outputLabel value="Fecha Nacimiento :" for="fechaNacimiento"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText  id="txtFechaNacimiento1" readonly="true"  class="form-control"
+                                                                      value="#{modificarRepresentanteCasaBeans.representanteDTO.fechaNacimiento}" >
+                                                            <f:convertDateTime dateStyle="default" />
+                                                        </h:inputText>
+                                                        <h:inputHidden id="txtFechaNacimiento" value="#{modificarRepresentanteCasaBeans.representanteDTO.fechaNacimiento}">
+                                                            <f:convertDateTime pattern="dd-mm-yyyy" timeZone="America/Mexico_City"/>
+                                                        </h:inputHidden>
+                                                    </td>
+                                                    <td>
+                                                        <h:outputLabel value="Curp :" for="curp"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText class="form-control" readonly="true" id="txtCurp1" label="curp" value="#{modificarRepresentanteCasaBeans.representanteDTO.curp}"/>
+                                                        <h:inputHidden id="txtCurp" value="#{modificarRepresentanteCasaBeans.representanteDTO.curp}"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <h:outputLabel value="Estado :" for="estadoNacimiento"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText class="form-control" readonly="true" id="txtEstadoNacimiento1" label="estadoNacimiento" value="#{modificarRepresentanteCasaBeans.representanteDTO.estadoNacimiento}"/>
+                                                        <h:inputHidden id="txtEstadoNacimiento" value="#{modificarRepresentanteCasaBeans.representanteDTO.estadoNacimiento}"/>
+                                                    </td>
+                                                    <td>
+                                                        <h:outputLabel value="Municipio :" for="municipio"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText class="form-control" readonly="true" id="txtMunicipio1" label="municipio" value="#{modificarRepresentanteCasaBeans.representanteDTO.municipioNacimiento}"/>
+                                                        <h:inputHidden id="txtMunicipio" value="#{modificarRepresentanteCasaBeans.representanteDTO.municipioNacimiento}"/>
+                                                    </td>
+                                                </tr>                                                
+                                                <tr>
+                                                    <td>
+                                                        <h:outputLabel value="U. Académica :" for="unidadAcademica"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText class="form-control" readonly="true" id="txtUAcademica1" label="unidadAcademica" value="#{modificarRepresentanteCasaBeans.representanteDTO.UAcademica}"/>
+                                                        <h:inputHidden id="txtUAcademica" value="#{modificarRepresentanteCasaBeans.representanteDTO.UAcademica}"/>
+                                                    </td>
+                                                    <td>
+                                                        <h:outputLabel value="Turno :" for="turno"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText class="form-control" readonly="true" id="txtTurno1" label="unidadAcademica" value="#{modificarRepresentanteCasaBeans.representanteDTO.turno}"/>
+                                                        <h:inputHidden id="txtTurno" value="#{modificarRepresentanteCasaBeans.representanteDTO.turno}"/>
+                                                    </td>                                                    
+                                                </tr>
+                                                <tr>
+                                                   <td>
+                                                        <h:outputLabel value="Semestre :" for="semestre"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText class="form-control" readonly="true" id="txtSemestre1" label="semestre" value="#{modificarRepresentanteCasaBeans.representanteDTO.semestre}"/>
+                                                        <h:inputHidden id="txtSemestre" value="#{modificarRepresentanteCasaBeans.representanteDTO.semestre}"/>
+                                                    </td>                                                     
+                                                   <td>
+                                                        <h:outputLabel value="Grado :" for="grado"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText class="form-control" readonly="true" id="txtGrado1" label="grado" value="#{modificarRepresentanteCasaBeans.representanteDTO.grado}"/>
+                                                        <h:inputHidden id="txtGrado" value="#{modificarRepresentanteCasaBeans.representanteDTO.grado}"/>
+                                                    </td>                                                     
+                                                </tr>
+                                                <tr>
+                                                   <td>
+                                                        <h:outputLabel value="Promedio :" for="promedio"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText class="form-control" id="txtPromedio" label="promedio" value="#{modificarRepresentanteCasaBeans.representanteDTO.promedio}"/>
+                                                        
+                                                    </td> 
+                                                    <td>
+                                                        <h:outputLabel value="Telefono *:" id="lblTelefono" for="telefono"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText class="form-control" a:type="number" maxlength="10" a:min="0" id="txtTelefono" label="telefono" value="#{modificarRepresentanteCasaBeans.representanteDTO.telefono}"/>
+                                                    </td>                                                    
+                                                </tr>
+                                                <tr>
+                                                   <td>
+                                                       <h:outputLabel value="E-mail *:" id="lblEmail" for="email"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:inputText class="form-control" id="txtEmail" label="email" value="#{modificarRepresentanteCasaBeans.representanteDTO.email}"/>
+                                                    </td>
+                                                    <td>
+                                                        <h:outputLabel value="Tipo Representante *:" id="lblTipoRepresentante" for="tipoRepresentante"></h:outputLabel>                                   
+                                                    </td>
+                                                    <td>
+                                                        <h:selectOneMenu id="cmbxTipoRepresentante" value="#{modificarRepresentanteCasaBeans.representanteDTO.cat_tiporepresentanteIdDTO}" class="cmbxtiporepresentante form-control">  
+                                                            <f:selectItems value="#{modificarRepresentanteCasaBeans.obtenerDatosTipoRepresentante()}" var="itemTipoRepresentante"
+                                                                             itemLabel="#{itemTipoRepresentante.nombre}" itemValue="#{itemTipoRepresentante.id}" /> 
+                                                        </h:selectOneMenu>
+                                                    </td>                                                    
+                                                </tr> 
+                                                <tr>
+                                                    <td>
+                                                        
+                                                    </td>
+                                                    <td>
+                                                        
+                                                    </td>
+                                                    <td>
+                                                        
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-inline" align="right">
+                                                            <div class="form-group">
+                                                                <h:link a:href="#!" type="button"  class="btn btn-primary btn-sm"  onclick="validarModRepresentante(this)" title="Modificar Representante" id="btnModRepresentante"><span aria-hidden="true"><strong>Confirmar</strong></span></h:link>
+                                                                <h:commandButton style="display: none" id="btnModRepresentante1" actionListener="#{modificarRepresentanteCasaBeans.modificarRepresentante()}" value="Confirma"></h:commandButton>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <h:commandButton value="Cancelar" class="btn btn-danger btn-sm" action="#{modificarRepresentanteCasaBeans.salida()}"></h:commandButton>                                                             
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </ui:define>
+        </ui:composition>
+        <h:outputScript name="js/chosen.jquery.js"/>
+        <script>
+           $('.cmbxtiporepresentante').chosen();
+        </script>        
+    </h:body>
+</html>

@@ -1,0 +1,21 @@
+#tablaBotonesDosColumnas{
+    margin-left: 60%;
+}
+
+.txt{
+    width: 150%;
+    border-radius: 5%;
+    padding-bottom: 5%;
+}
+.combobox{
+    width: 100%;
+    border-radius: 5%;
+    padding-bottom: 5%;
+}
+.columSeparadora{
+    width: 20%;
+}
+
+.columSeparadora2{
+    width: 10%;
+}

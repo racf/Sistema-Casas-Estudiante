@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> 
+        <h:outputScript name="jquery/jquery.min.js"/>
+        <h:outputScript name="js/Casas_Estudiantes/Arrendador.js"/>
+        <h:outputStylesheet name="css/chosen.css"/>       
+    </h:head>
+    <h:body>
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Alta Arrendador</strong></h3>
+                    </div>
+                </div>
+                <div id="mensajeAltaArrendador"></div>
+                <div class="panel-body">
+                    <div class="form-group-sm"><h4><label class="label label-danger">Datos del Arrendador:</label></h4></div>
+                </div>  
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        
+                        <h:form id="formAltaArrendador">
+
+
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <h:outputLabel value="Numero Arrendador*:" for="txtID"></h:outputLabel>
+                                    <div class="input-group custom-search-form">
+                                        <h:inputText id="txtID" a:type="number" validator="existeProvedorExternoValidate" class="form-control" a:autofocus="true" label="Numero ID" value="#{altaArrendador.dto.numProveedor}"></h:inputText>  
+                                        <span class="input-group-btn">
+                                            <h:link id="btnBuscarArrendador1" a:href="#!" type="button" class="btn btn-default form-control" onclick="buscarAltaArrendador(this)">
+                                                <i class="fa fa-search"></i>
+                                            </h:link>
+                                        </span>
+                                    </div>
+                                    <h:commandButton value="Buscar" id="btnBuscarArrendador" style="display: none" action="#{altaArrendador.obtenerdatosArrendador()}" >                                                                                           
+                                    </h:commandButton>
+                                    <h5><h:message for="txtID" style="color: red"></h:message></h5>
+                                </div>
+                                <div class="form-group">&nbsp;
+                                    <h:outputLabel value="RFC*:" for="txtRFC"></h:outputLabel>
+                                    <h:inputText class="form-control" readonly="true"  label="RFC" value="#{altaArrendador.dto.RFC}">
+                                    </h:inputText> 
+                                    <h:inputHidden id="txtRFC" value="#{altaArrendador.dto.RFC}"/>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-group">
+                                    <h:outputLabel value="Nombre*:" for="txtNombre"></h:outputLabel>   
+                                    <h:inputText class="form-control" readonly="true"  label="RFC" value="#{altaArrendador.dto.nombre}"></h:inputText>
+                                    <h:inputHidden id="txtNombre" value="#{altaArrendador.dto.nombre}"/>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-group">
+                                    <h:outputLabel value="Domicilio*:" id="lblDomicilio" for="txtDomicilio"></h:outputLabel>   
+                                    <h:inputText class="form-control" id="txtDomicilio" label="Domicilio" value="#{altaArrendador.dto.domicilio}"></h:inputText>
+                                </div>
+                            </div>
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <h:outputLabel value="Curp*:"  id="lblCurp" for="txtcurp"></h:outputLabel>
+                                    <h:inputText id="txtcurp" class="form-control"  label="curp" value="#{altaArrendador.dto.curp}"></h:inputText>  
+                                </div>
+                                <div class="form-group">&nbsp;
+                                    <h:outputLabel value="Telefono*:" id="lblTelefono" for="txtTelefono"></h:outputLabel>
+                                    <h:inputText class="form-control" a:type="number" id="txtTelefono" label="telefono" value="#{altaArrendador.dto.telefono}">
+                                    </h:inputText> 
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <h:outputLabel value="Email*:" id="lblEmail" for="txtemail"></h:outputLabel>
+                                    <h:inputText id="txtemail" class="form-control"  label="email" value="#{altaArrendador.dto.email}"></h:inputText>  
+                                </div>
+                                <div class="form-group">&nbsp;
+                                    <h:outputLabel value="Tipo de Arrendador*:" id="lblTipoArrendadro" for="cmbxTipoArrendador"></h:outputLabel>
+                                    <h:selectOneMenu id="cmbxTipoArrendador" label="Tipo de Arrendador" value="#{altaArrendador.dto.cat_tipoarrendadorIdDTO}" class="form-control">
+                                        <f:selectItem itemLabel="---Seleccione el Tipo de Arrendador---" itemValue=""></f:selectItem>
+                                        <f:selectItems value="#{altaArrendador.obtenerTiposArrendador()}" var="itemTipoA"
+                                                       itemLabel="#{itemTipoA.nombre}" itemValue="#{itemTipoA.id}" />                            
+
+                                    </h:selectOneMenu>
+
+                                </div>
+                            </div>
+
+                            <h:inputHidden id="auxNumero" value="#{altaArrendador.aux}"></h:inputHidden>
+
+                            <div align="right">
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <h:link a:href="#!" type="button"  class="btn btn-primary btn-sm" onclick="validarAltaArrendador(this,#{altaArrendador.validarInterno(altaArrendador.dto.numProveedor)})" title="Ver Detalle de Beca del Becario" id="btnAltaBecario"><span aria-hidden="true"><strong>Confirmar</strong></span></h:link>
+                                        <h:commandButton style="display: none" id="btnAltaArrendador" actionListener="#{altaArrendador.altaArrendador()}" value="Confirma"></h:commandButton>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:button class="btn btn-danger btn-sm" value="Cancelar" outcome="Arrendador.xhtml"></h:button>
+                                    </div>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+        <h:outputScript name="js/chosen.jquery.js"/>
+        <script>
+            $('.cmbxnivelbeca').chosen();
+            $('.cmbxtipobeca').chosen();
+            $('.cmbxzona').chosen();
+        </script>
+    </h:body>
+</html>

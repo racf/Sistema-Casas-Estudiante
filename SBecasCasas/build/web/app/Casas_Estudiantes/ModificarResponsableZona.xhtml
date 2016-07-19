@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
+    <h:head>
+        <h:outputScript name="jquery/jquery.min.js"/>
+       <h:outputScript name="js/Casas_Estudiantes/Tbl_Responsable.js"/>
+        <h:outputStylesheet name="css/chosen.css"/> 
+    </h:head>    
+    <h:body>
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+                <div class="panel panel-default">
+                    <div class="panel-heading" align="center">
+                        <h3 class="panel-title"><strong>Modificar Responsable de Zona</strong></h3>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div id="messageModResponsableZona"></div>
+                        <h:form id="formModResponsableZona">
+                            <div class="form-group">
+                                <h:outputLabel value="Num. Empleado * " id="lblNumeroEmpleado"></h:outputLabel>
+                                <h:inputText disabled="true" a:type="number" a:min="0" id="txtNumEmpleado" value="#{modificarResponsableZonaBeans.responsableDTO.id}" class="form-control"></h:inputText>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel value="Nombre *"></h:outputLabel>
+                                <h:inputText disabled="true" id="txtNombre" value="#{modificarResponsableZonaBeans.responsableDTO.nombre}" class="form-control"></h:inputText>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel value="Apellido Paterno *"></h:outputLabel>
+                                <h:inputText disabled="true" id="txtApellidoPat" value="#{modificarResponsableZonaBeans.responsableDTO.apellidoPat}" class="form-control"></h:inputText>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel value="Apellido Materno *"></h:outputLabel>
+                                <h:inputText disabled="true" id="txtApellidoMat" value="#{modificarResponsableZonaBeans.responsableDTO.apellidoMat}" class="form-control"></h:inputText>
+                            </div>                            
+                            <div class="form-group">
+                                <h:outputLabel value="Email "></h:outputLabel>
+                                <h:inputText a:type="email" id="txtEmail" value="#{modificarResponsableZonaBeans.responsableDTO.email}" class="form-control"></h:inputText>
+                            </div>                            
+                            <div class="form-group">
+                                <h:outputLabel value="Zona *" id="lblcmbxZona" for="zona"></h:outputLabel> 
+                                <h:selectOneMenu id="cmbxZona" value="#{modificarResponsableZonaBeans.responsableDTO.cat_zonasIdDTO}" class="cmbxzona form-control">                                    
+                                    <f:selectItems value="#{modificarResponsableZonaBeans.obtenerZonas()}" var="itemZonas" itemLabel="#{itemZonas.nombre}" itemValue="#{itemZonas.id}"></f:selectItems>
+                                </h:selectOneMenu>
+                            </div>
+                            <br/>
+                            <div align="right">
+                                <div class="form-inline">
+                                    <div class="form-group"> 
+                                        <h:link a:href="#!" type="button" onclick="validarCamposModResponsableZona(this)"  class="btn btn-primary btn-sm" title="Modificar Responsable de Zona" id="btnModificarResponsable"><span class="glyphicon glyphicon-floppy-open" aria-hidden="true"> Confirmar</span></h:link>                                                                     
+                                        <h:commandButton style="display: none" id="btnModificarResponsable1" actionListener="#{modificarResponsableZonaBeans.modificarResponsable()}" value="Confirma"></h:commandButton>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:commandButton value="Cancelar" class="btn btn-danger btn-sm" action="#{modificarResponsableZonaBeans.salida()}"></h:commandButton>                                                             
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>                
+            </ui:define>
+
+        </ui:composition>
+        <h:outputScript name="js/chosen.jquery.js"/>
+        <script>
+           $('.cmbxzona').chosen();
+       </script>
+    </h:body>
+</html>

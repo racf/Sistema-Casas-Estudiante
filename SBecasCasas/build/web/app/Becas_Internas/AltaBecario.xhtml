@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> 
+        <h:outputScript name="jquery/jquery.min.js"/>
+        <h:outputScript  name="js/Becas_Internas/Tbl_Becario.js"/>
+        <h:outputStylesheet name="css/chosen.css"/>       
+    </h:head>
+    <h:body>
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Alta Becario</strong></h3>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                <div id="messageAltaBecario"></div>
+                <div class="panel-body">
+                    <div class="form-group-sm"><h4><label class="label label-danger">Datos Personales del Becario:</label></h4></div>
+                </div>                    
+                <h:form id="formAltaBecario">
+                    <div class="form-group">
+                        <h4><h:message class="label label-info" style="color: red" for="txtNumeroID"/></h4>
+                    </div> 
+                    <table class="table-condensed">
+                        <tr>
+                            <td>
+                                <h:outputLabel id="lblNumeroID" value="Numero ID*:" for="numeroID"></h:outputLabel>                                   
+                            </td>
+                            <td>
+                                <div class="form-inline">
+                                    <div class="input-group custom-search-form tablaelemtbuscar">                                                      
+                                        <h:inputText id="txtNumeroID" validator="existeBecarioExternoValidate" a:type="number" a:min="0" class="form-control" a:autofocus="true" label="Numero ID" value="#{altaBecarioBeans.detalleBecarioDTO.becarioDTO.id}"></h:inputText> 
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default form-control" id="btnBuscarBecario" onclick="buscarBecario(this)" title="Buscar Becario...">
+                                                <i class="fa fa-search"></i>            
+                                            </button>
+                                        </span>                                                                                                                        
+                                    </div>
+                                    <h:commandButton id="btnBuscarBecario1" style="display: none" value="Buscar" onclick="#{altaBecarioBeans.obtenerDatosExternosBecario()}"/>                                                                                                                                   
+                                </div>
+                            </td>
+                            <td>
+                                <h:outputLabel id="lblFechaRegistro" value="Fecha de Registro*:" for="fechaRegistro"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:inputText a:type="date" class="form-control" id="txtFechaRegistro" label="Fecha de Registro" value="#{altaBecarioBeans.detalleBecarioDTO.becarioDTO.fechaRegistro}">
+
+                                </h:inputText> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Nombre :" for="nombre"></h:outputLabel> 
+                            </td>
+                            <td>
+                                <h:inputText id="txtNombre1" readonly="true" class="form-control" label="Nombre" value="#{altaBecarioBeans.detalleBecarioDTO.becarioDTO.nombre}"/>
+                                <h:inputHidden id="txtNombre" value="#{altaBecarioBeans.detalleBecarioDTO.becarioDTO.nombre}"/>
+                            </td>
+                            <td>
+                                <h:outputLabel value="Apellido Paterno :" for="apellidoPaterno"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:inputText id="txtApellidoPat1" readonly="true" class="form-control" label="Apellido Paterno" value="#{altaBecarioBeans.detalleBecarioDTO.becarioDTO.apellidoPat}"/>  
+                                <h:inputHidden id="txtApellidoPat" value="#{altaBecarioBeans.detalleBecarioDTO.becarioDTO.apellidoPat}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Apellido Materno :" for="apellidoMaterno"></h:outputLabel> 
+                            </td>
+                            <td>
+                                <h:inputText id="txtApellidoMat1" readonly="true" class="form-control" label="Apellido Materno" value="#{altaBecarioBeans.detalleBecarioDTO.becarioDTO.apellidoMat}"/>
+                                <h:inputHidden id="txtApellidoMat" value="#{altaBecarioBeans.detalleBecarioDTO.becarioDTO.apellidoMat}"/>
+                            </td>
+                            <td>
+                                <h:outputLabel value="Curp :" for="curp"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:inputText id="txtCurp" label="Curp" class="form-control" maxlength="18" value="#{altaBecarioBeans.detalleBecarioDTO.becarioDTO.curp}"/>  
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Telefono :" for="telefono"></h:outputLabel> 
+                            </td>
+                            <td>
+                                <h:inputText a:type="number" maxlength="10" id="txtTelefono" a:min="0" class="form-control" label="Telefono" value="#{altaBecarioBeans.detalleBecarioDTO.becarioDTO.telefono}">
+                                    <!--<f:validateLength minimum="0" maximum="10"></f:validateLength>-->                                       
+                                </h:inputText>
+                            </td>
+                        </tr>                                                         
+                    </table>                    
+                    <div class="panel-body">
+                        <h:outputLabel/><div class="form-group-sm"><h4><label class="label label-success">Datos Generales de la Beca: </label></h4></div>
+                    </div>
+                    <div class="form-inline" style="display: none">
+                        <div class="form-group">
+                            <h:outputLabel value="Numero ID *:" for="numero"/>
+                        </div>
+                        <div class="form-group">
+                            <h:inputHidden id="auxClaveBecario" value="#{altaBecarioBeans.detalleBecarioDTO.tbl_becarioIdDTO}"/>
+                        </div>
+                    </div>
+
+                    <table class="table-condensed">
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Clave Beca :" for="nivel"/>
+                            </td>
+                            <td>
+                                <h:inputText id="claveBeca1" class="form-control" readonly="true" value="#{altaBecarioBeans.detalleBecarioDTO.cat_tipobecaIdDTO}"/>
+                                <h:inputHidden id="claveBeca" value="#{altaBecarioBeans.detalleBecarioDTO.cat_tipobecaIdDTO}"/>
+                            </td>
+                            <td>
+                                <h:outputLabel value="Tipo de Beca :" for="tipoBeca"></h:outputLabel> 
+                            </td>
+                            <td>
+                                <h:inputText id="tipoBeca" class="form-control" readonly="true" value="#{altaBecarioBeans.detalleBecarioDTO.tipoBecaDTO.nombre}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Fecha Inicio de la Beca :" for="fechaFinal"></h:outputLabel> 
+                            </td>
+                            <td>
+                                <h:inputText id="txtFechaInicioBeca1" readonly="true" value="#{altaBecarioBeans.detalleBecarioDTO.fechaInicioBeca}" 
+                                             class="form-control" label="Fecha Inicio de la Beca">
+                                    <f:convertDateTime dateStyle="default" />
+                                </h:inputText>
+                                <h:inputHidden id="txtFechaInicioBeca" value="#{altaBecarioBeans.detalleBecarioDTO.fechaInicioBeca}">
+                                    <f:convertDateTime dateStyle="default" timeZone="America/Mexico_City"/>
+                                </h:inputHidden>                                
+                            </td>
+                            <td>
+                                <h:outputLabel value="Fecha Final de la Beca :" for="fechaInicial"></h:outputLabel>  
+                            </td>
+                            <td>
+                                <h:inputText  id="txtFechaFinalBeca1" readonly="true" value="#{altaBecarioBeans.detalleBecarioDTO.fechaFinBeca}" 
+                                              class="form-control" label="Fecha Final de la Beca">                                            
+                                    <f:convertDateTime dateStyle="default"></f:convertDateTime>                                        
+                                </h:inputText>
+                                <h:inputHidden id="txtFechaFinalBeca" value="#{altaBecarioBeans.detalleBecarioDTO.fechaFinBeca}">
+                                    <f:convertDateTime dateStyle="default" timeZone="America/Mexico_City"/>
+                                </h:inputHidden>                                    
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel id="lblArea" value="Area*:" for="area"></h:outputLabel> 
+                            </td>
+                            <td>
+                                <h:inputText id="txtArea" label="Area"  value="#{altaBecarioBeans.detalleBecarioDTO.area}" class="form-control"/>
+                            </td>
+                            <td>
+                                <h:outputLabel id="lblSolicitante" value="Solicitante*:" for="solicitante"></h:outputLabel>  
+                            </td>
+                            <td>
+                                <h:inputText id="txtSolicitante" label="Solicitante" value="#{altaBecarioBeans.detalleBecarioDTO.solicitante}" class="form-control">
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel id="lblAdcripcion" value="Adscripción*:" for="adscripción"></h:outputLabel> 
+                            </td>
+                            <td>
+                                <h:inputText id="txtAdcripcion" label="Adscripción" value="#{altaBecarioBeans.detalleBecarioDTO.adscripcion}" 
+                                             class="form-control"/>
+                            </td>
+                            <td>
+                                <h:outputLabel id="lblZona" value="Zona*:" for="zona"></h:outputLabel> 
+                            </td>
+                            <td>
+                                <h:selectOneMenu id="cmbxZona" label="Zona" value="#{altaBecarioBeans.detalleBecarioDTO.cat_zonasIdDTO}" 
+                                                 class="cmbxzona form-control">
+                                    <f:selectItem itemLabel="---Seleccione la Zona---" itemValue=""></f:selectItem>
+                                    <f:selectItems value="#{altaBecarioBeans.obtenerZonas()}" var="itemZonas" itemLabel="#{itemZonas.nombre}" 
+                                                   itemValue="#{itemZonas.id}"/>
+                                </h:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Observaciones:" for="observaciones"></h:outputLabel> 
+                            </td>
+                            <td>
+                                <h:inputTextarea id="txtObservacion" value="#{altaBecarioBeans.detalleBecarioDTO.observacion}" label="Observaciones:" class="form-control"/>
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+                                <div class="form-inline" align="right">
+                                    <div class="form-group">
+                                        <h:link a:href="#!" type="button"  class="btn btn-primary btn-sm" onclick="validarCamposAltaBecario(this, #{altaBecarioBeans.validarBecarioExiste(altaBecarioBeans.detalleBecarioDTO.becarioDTO.id)})" title="Alta Becario" id="btnAltaBecario"><span aria-hidden="true"><strong>Confirmar</strong></span></h:link>
+                                        <h:commandButton style="display: none" id="btnAltaBecario1" actionListener="#{altaBecarioBeans.altaBecarioTransaccion()}" value="Confirmar"></h:commandButton>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:button  class="btn btn-danger btn-sm" value="Cancelar" outcome="Gestion_Beca.xhtml"></h:button>                                
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>                        
+                </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+        <h:outputScript name="js/chosen.jquery.js"/>
+        <script>
+            $('.cmbxzona').chosen();
+        </script>
+    </h:body>
+</html>

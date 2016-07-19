@@ -210,7 +210,7 @@
                                     <f:facet name="header">
                                         <h:outputLabel value="Seleccion"></h:outputLabel>
                                     </f:facet>
-                                    <h:selectBooleanCheckbox onclick="procesarCheckBox(#{elemento.matricula})" />
+                                    <h:selectBooleanCheckbox onclick="procesarCheckBox(this)" />
                                     <h:inputHidden value="#{elemento.matricula}" />
                                 </h:column>
                             </h:dataTable>

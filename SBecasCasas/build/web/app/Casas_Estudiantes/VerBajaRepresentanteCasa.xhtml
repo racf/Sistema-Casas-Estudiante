@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet name="css/dataTables.min.css"/>
+        <h:outputScript name="jquery/jquery.min.js"/>
+        <h:outputScript name="js/dataTables.min.js"/>
+        <h:outputScript name="js/Casas_Estudiantes/Tbl_Representante.js" />
+        <h:outputScript name="js/script.js"/>
+        <h:outputScript name="js/bootbox.min.js"/>
+    </h:head>     
+    <h:body>
+
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+                <div id="page-wrapper">
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" align="center">
+                                <h3 class="panel-title"><strong>Ver Representantes de Casas Dados de Baja</strong></h3>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div id="messageActivacionRepresentante"></div>
+                                <div class="form-group-sm"><h4><label class="label label-primary">Buscar Representante</label></h4></div>
+                                <h:form id="form">
+                                    <h:dataTable id="table" value="#{verBajaRepresentanteCasaBeans.obtenerDatosBaja()}" var="lstRepresentante" class="display table-condensed">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <div align="center">
+                                                    <h:outputLabel value="Matricula"></h:outputLabel>
+                                                </div>
+                                            </f:facet>
+                                            <h:outputLabel value="#{lstRepresentante.matricula}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <div align="center">
+                                                    <h:outputLabel value="Nombre"></h:outputLabel>
+                                                </div>
+                                            </f:facet>
+                                           <h:outputLabel value="#{lstRepresentante.nombre} #{lstRepresentante.apellidoPat} #{lstRepresentante.apellidoMat}" />                                                                   
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <div align="center">
+                                                    <h:outputLabel value="Tipo Representante"></h:outputLabel>
+                                                </div>
+                                            </f:facet>
+                                           <h:outputLabel value="#{lstRepresentante.tipoRepresentanteDTO.nombre}"/>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <div align="center">
+                                                    <h:outputLabel value="Telefono"></h:outputLabel>
+                                                </div>
+                                            </f:facet>
+                                           <h:outputLabel value="#{lstRepresentante.telefono}"/>
+                                        </h:column>
+                                        <h:column>
+                                             <f:facet name="header">
+                                                 <div align="center">
+                                                     <h:outputLabel value="Email"></h:outputLabel>
+                                                 </div>
+                                             </f:facet>
+                                            <h:outputLabel value="#{lstRepresentante.email}"/>
+                                        </h:column>
+                                        <h:column>                                                                   
+                                             <f:facet name="header">
+                                                 <div align="center">
+                                                     <h:outputLabel value="Opciones"></h:outputLabel>
+                                                 </div>
+                                             </f:facet>
+                                            <div align="center">
+                                                <h:link a:href="#!" type="button" onclick="confirmActivacionRepresentante(this, #{lstRepresentante.matricula})"  class="btn btn-danger btn-sm" title="Activar Representante Dado de Baja" id="btnActivarRepresentante"><span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span></h:link>
+                                                <h:commandButton style="display: none" id="btnActivarRepresentante1" value="Submit" action="#{verBajaRepresentanteCasaBeans.activar(lstRepresentante)}"></h:commandButton>
+                                            </div>                                            
+                                        </h:column>
+                                    </h:dataTable>
+                                    <br/>
+                                    <br/>
+                                    <div align="right">
+                                        <h:commandButton value="Cancelar" action="#{verBajaRepresentanteCasaBeans.salir()}"></h:commandButton>
+                                    </div>                                    
+                                </h:form>
+                            </div>
+                        </div>                                                        
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

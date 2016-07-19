@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
+    <h:head>
+        <h:outputScript name="jquery/jquery.min.js"/>
+        <h:outputScript name="js/Becas_Internas/Tbl_Becario.js"/>
+        <h:outputScript name="js/bootbox.min.js"/>
+    </h:head>
+
+    <h:body>
+
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Baja Becario</strong></h3>
+                    </div>
+                </div>
+                <div id="messageBajaBecario"></div>
+                <div class="form-group-sm"><h4><label class="label label-danger">Datos Personales del Becario: </label></h4></div> 
+                <h:form id="formBajaBecario">                                    
+                    <table class="table-condensed">
+                        <tr>
+                            <td>
+                                <strong><h:outputLabel value="Numero ID :" for="numeroID"/></strong>
+                            </td>
+                            <td>
+                                <h:inputText disabled="true" id="txtBajaBecarioId" value="#{bajaBecarioBeans.becarioDTO.id}" class="form-control"/>
+                            </td>
+                            <td>
+                                <strong><h:outputLabel value="Fecha de Registro :" for="fechaRegistro"/></strong>
+                            </td>
+                            <td>
+                                <h:inputText disabled="true" id="txtBajaBecarioFechaRegistro" value="#{bajaBecarioBeans.becarioDTO.fechaRegistro}" class="form-control"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong><h:outputLabel value="Nombre :" for="nombre"/></strong>  
+                            </td>
+                            <td>
+                                <h:inputText disabled="true" id="txtBajaBecarioNombre" value="#{bajaBecarioBeans.becarioDTO.nombre}" class="form-control"/> 
+                            </td>
+                            <td>
+                                <strong><h:outputLabel value="Apellido Paterno :" for="apellidoPaterno"/></strong>  
+                            </td>
+                            <td>
+                                <h:inputText disabled="true" id="txtBajaBecarioApellidoPaterno" value="#{bajaBecarioBeans.becarioDTO.apellidoPat}" class="form-control"/> 
+                            </td>                            
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong><h:outputLabel  value="Apellido Materno :" for="apellidoMaterno"/></strong>  
+                            </td>
+                            <td>
+                                <h:inputText disabled="true" id="txtBajaBecarioApellidoMaterno" value="#{bajaBecarioBeans.becarioDTO.apellidoMat}" class="form-control"/> 
+                            </td>
+                            <td>
+                                <strong><h:outputLabel value="CURP :" for="curp"/></strong>  
+                            </td>
+                            <td>
+                                <h:inputText disabled="true" id="txtBajaBecarioCurp" value="#{bajaBecarioBeans.becarioDTO.curp}" class="form-control"/> 
+                            </td>                            
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong><h:outputLabel value="Telefono :" for="telefono"/></strong>  
+                            </td>
+                            <td>
+                                <h:inputText disabled="true" id="txtBajaBecarioTelefono" value="#{bajaBecarioBeans.becarioDTO.telefono}" class="form-control"/> 
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td>
+                                
+                            </td>                            
+                        </tr>
+                        <tr>
+                            <td>
+                                
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td>
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <h:link a:href="#!" type="button"  class="btn btn-primary btn-sm" onclick="confirmBajaBecario(this)" title="Reactivar Becarios Dados de Baja" id="btnEnviarBajaBecario"><span aria-hidden="true"><strong>Confirmar</strong></span></h:link>                                                                                                            
+                                        <h:commandButton id="btnEnviarBajaBecario1" style="display: none" actionListener="#{bajaBecarioBeans.bajaBecario()}" value="Confirma"></h:commandButton>                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <h:commandButton class="btn btn-danger btn-sm" value="Cancelar" action="#{bajaBecarioBeans.salida()}"></h:commandButton>                                
+                                    </div>
+                                    
+                                </div>
+                            </td>
+                        </tr>
+                    </table>                   
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>

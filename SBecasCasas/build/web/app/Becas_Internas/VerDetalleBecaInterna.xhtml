@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:body>
+
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Ver Detalle del Becario</strong></h3>
+                    </div>
+                </div>
+                <h:form id="formVerDetalleBecario">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <fieldset class="fieldset">
+                                <legend><h5><strong>Detalle del Becario</strong></h5></legend>
+                                <table class="table-condensed table-striped table-hover">
+                                    <tr>
+                                        <td>
+                                            <strong><h:outputLabel value="Numero ID:" for="numeroID"></h:outputLabel></strong>                                  
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{verDetalleBecaInternaBeans.detalleBecarioDTO.becarioDTO.id}"></h:outputText>
+                                        </td>
+                                        <td>
+                                            <strong><h:outputLabel value="Fecha de Registro:" for="fechaRegistro"></h:outputLabel></strong>                                   
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{verDetalleBecaInternaBeans.detalleBecarioDTO.becarioDTO.fechaRegistro}"></h:outputText>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong><h:outputLabel value="Nombre:" for="nombre"></h:outputLabel></strong>                                   
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{verDetalleBecaInternaBeans.detalleBecarioDTO.becarioDTO.nombre} #{verDetalleBecaInternaBeans.detalleBecarioDTO.becarioDTO.apellidoPat} #{verDetalleBecaInternaBeans.detalleBecarioDTO.becarioDTO.apellidoMat}"></h:outputText>
+                                        </td>
+                                        <td>
+                                            <strong><h:outputLabel value="Telefono:" for="telefono"></h:outputLabel></strong>                                   
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{verDetalleBecaInternaBeans.detalleBecarioDTO.becarioDTO.telefono}"></h:outputText>
+                                        </td>                                    
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong><h:outputLabel value="CURP:" for="curp"></h:outputLabel></strong>                                     
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{verDetalleBecaInternaBeans.detalleBecarioDTO.becarioDTO.curp}"></h:outputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </fieldset>
+                        </div>                       
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h:outputLabel value="Fecha de Renovación: "></h:outputLabel> <h:outputText value="#{verDetalleBecaInternaBeans.detalleBecarioDTO.fecha}"></h:outputText>
+                        </div>
+                        <table class="table-condensed table-striped table-hover">
+                            <tr>
+                                <td>
+                                    <strong><h:outputLabel value="Clave Beca: " for="ClaveBeca"></h:outputLabel></strong>                                   
+                                </td>
+                                <td>
+                                    <h:outputText value="#{verDetalleBecaInternaBeans.detalleBecarioDTO.tipoBecaDTO.id}"></h:outputText>
+                                </td>
+                                <td>
+                                   <strong><h:outputLabel value="Tipo de Beca: " for="TipoBeca"></h:outputLabel></strong>                                    
+                                </td>
+                                <td>
+                                    <h:outputText value="#{verDetalleBecaInternaBeans.detalleBecarioDTO.tipoBecaDTO.nombre}"></h:outputText> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong><h:outputLabel value="Fecha de Inicio de la Beca: " for="fechaInicioBeca"></h:outputLabel></strong>                                   
+                                </td>
+                                <td>
+                                    <h:outputText value="#{verDetalleBecaInternaBeans.detalleBecarioDTO.fechaInicioBeca}"></h:outputText>
+                                </td>
+                                <td>
+                                   <strong><h:outputLabel value="Fecha Final de la Beca: " for="fechaFinBeca"></h:outputLabel></strong>                                    
+                                </td>
+                                <td>
+                                    <h:outputText value="#{verDetalleBecaInternaBeans.detalleBecarioDTO.fechaFinBeca}"></h:outputText> 
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong><h:outputLabel value="Area: " for="area"></h:outputLabel></strong>                                   
+                                </td>
+                                <td>
+                                    <h:outputText value="#{verDetalleBecaInternaBeans.detalleBecarioDTO.area}"></h:outputText>
+                                </td>
+                                <td>
+                                   <strong><h:outputLabel value="Solicitante: " for="solicitante"></h:outputLabel></strong>                                    
+                                </td>
+                                <td>
+                                    <h:outputText value="#{verDetalleBecaInternaBeans.detalleBecarioDTO.solicitante}"></h:outputText> 
+                                </td>                                
+                            </tr> 
+                            <tr>
+                                <td>
+                                    <strong><h:outputLabel value="Adscripción: " for="adscripcion"></h:outputLabel></strong>                                   
+                                </td>
+                                <td>
+                                    <h:outputText value="#{verDetalleBecaInternaBeans.detalleBecarioDTO.adscripcion}"></h:outputText>
+                                </td>
+                                <td>
+                                   <strong><h:outputLabel value="Zona " for="zona"></h:outputLabel></strong>                                    
+                                </td>
+                                <td>
+                                    <h:outputText value="#{verDetalleBecaInternaBeans.detalleBecarioDTO.zonasDTO.nombre}"></h:outputText> 
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong><h:outputLabel value="Observaciones: " for="observaciones"></h:outputLabel></strong>                                   
+                                </td>
+                                <td>
+                                    <h:outputText value="#{verDetalleBecaInternaBeans.detalleBecarioDTO.observacion}"></h:outputText>
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    <div align="right">
+                                        <h:commandButton class="btn btn-danger btn-sm" value="Cancelar" action="#{verDetalleBecaInternaBeans.salida()}"></h:commandButton>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table> 
+                    </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet name="css/dataTables.min.css"/>
+        <h:outputScript name="jquery/jquery.min.js"/>
+        <h:outputScript name="js/dataTables.min.js"/>
+        <h:outputScript name="js/Casas_Estudiantes/Tbl_Responsable.js" />
+        <h:outputScript name="js/script.js"/>
+        <h:outputScript name="js/bootbox.min.js"/>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="content">
+                <div id="page-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#gestionResponsableZona" data-toggle="tab"><span class="fa fa-user"></span>Gestión Responsable</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active table-responsive" id="gestionResponsableZona">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="panel panel-default">                                                   
+                                                    <div class="panel-body">
+                                                        <h:link a:href="AltaResponsableZona.xhtml" type="button" class="btn btn-success btn-lg" title="Alta Responsable de Zona" id="altaResponsable"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></h:link>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-body">
+                                                        <h:link a:href="VerBajaResponsableZona.xhtml" type="button" class="btn btn-danger btn-lg" title="Ver Responsables Dados de Baja" id="VerResponsablesBaja"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></h:link>
+                                                    </div>
+                                                </div>                                                 
+                                                <div id="messageBajaResponsableZona"></div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-body">
+                                                        <div class="form-group-sm"><h4><label class="label label-primary">Buscar Responsable</label></h4></div>
+                                                        <h:form id="form">
+                                                            <h:dataTable id="table" value="#{gestionResposableBeans.obtenerDatos()}" var="lstResponsable" class="display table-condensed">
+                                                                <h:column>
+                                                                    <f:facet name="header">
+                                                                        <h:outputLabel value="Numero Empleado"></h:outputLabel>
+                                                                    </f:facet>
+                                                                    <h:outputLabel value="#{lstResponsable.id}"/>
+                                                                </h:column>
+                                                                <h:column>
+                                                                    <f:facet name="header">
+                                                                        <h:outputLabel value="Nombre"></h:outputLabel>
+                                                                    </f:facet>
+                                                                    <h:outputLabel value="#{lstResponsable.nombre} #{lstResponsable.apellidoPat} #{lstResponsable.apellidoMat}"/>
+                                                                </h:column>
+                                                                <h:column>
+                                                                    <f:facet name="header">
+                                                                        <h:outputLabel value="Email"></h:outputLabel>
+                                                                    </f:facet>
+                                                                    <h:outputLabel value="#{lstResponsable.email}"/>
+                                                                </h:column>
+                                                                <h:column>
+                                                                    <f:facet name="header">
+                                                                        <h:outputLabel value="Zona"></h:outputLabel>
+                                                                    </f:facet>
+                                                                    <h:outputLabel value="#{lstResponsable.zonasDTO.nombre}"/>
+                                                                </h:column>
+                                                                <h:column>
+                                                                    <f:facet name="header">
+                                                                        <h:outputLabel value="Opciones"></h:outputLabel>
+                                                                    </f:facet>
+                                                                        <div class="form-inline">
+                                                                            <div class="form-group">
+                                                                                <h:link a:href="#!" type="button"  class="btn btn-warning btn-sm" onclick="obtenerIdModResponsable(this)" title="Modificar Responsable" id="btnModificarResponsable"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></h:link>                                                                
+                                                                                <h:commandButton style="display: none" id="btnModificarResponsable1" value="Submit" action="#{gestionResposableBeans.outcomeModResponsable(lstResponsable.id)}"></h:commandButton>
+                                                                            </div>
+                                                                            <div class="form-group">                                                                                
+                                                                                <h:link a:href="#!" type="button"  class="btn btn-primary btn-sm" onclick="obtenerIdVerResponsable(this)" title="Ver Responsable" id="btnVerResponsable"><span class="fa fa-search-plus" aria-hidden="true"></span></h:link>                                                                    
+                                                                                <h:commandButton style="display: none" id="btnVerResponsable1" value="Submit" action="#{gestionResposableBeans.outcomeVerResponsable(lstResponsable.id)}"></h:commandButton>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <h:link a:href="#!" type="button"  class="btn btn-danger btn-sm" onclick="confirmBajaResponsable(this, #{lstResponsable.id})" title="Eliminar Responsable" id="btnEliminarResponsable"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></h:link>                                                                 
+                                                                                <h:commandButton style="display: none" id="btnEliminarResponsable1" value="Submit" action="#{gestionResposableBeans.eliminar(lstResponsable)}"></h:commandButton>
+                                                                            </div>
+                                                                        </div>                                                                    
+                                                                </h:column>
+                                                            </h:dataTable> 
+                                                        </h:form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
