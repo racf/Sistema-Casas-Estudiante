@@ -84,7 +84,7 @@ public enum Util {
     tbl_archivosExtencion("tbl_archivosExtencion"),
     tbl_archivosURL("tbl_archivosURL"),
     tbl_archivosDescripcion("tbl_archivosDescripcion"),
-    tbl_archivos_cat_archivosId("tbl_archvios_cat_archivosId"),
+    tbl_archivos_cat_archivosId("tbl_archivos_cat_archivosId"),
     //#tbl_arrendador
     tbl_arrendadorId("tbl_arrendadorId"),
     tbl_arrendadorNumProveedor("tbl_arrendadorNumProveedor"),

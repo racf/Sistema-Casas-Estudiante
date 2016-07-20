@@ -1,6 +1,7 @@
 package edu.uagro.controlador.casas;
 
 import edu.uagro.bo.Cat_ArchivosBO;
+import edu.uagro.bo.Tbl_ArchivosBO;
 import edu.uagro.bo.Tbl_ExpedienteCasaBO;
 import edu.uagro.dto.Cat_ArchivosDTO;
 import edu.uagro.dto.Tbl_ArchivosDTO;
@@ -50,11 +51,16 @@ public class VerDetalleContrato {
             // get moradores if any
             cat_archivos = new Cat_ArchivosBO().obtenerCatArchivos();
             archivo = new Tbl_ArchivosDTO();
+            archivo.setTbl_expedientecasaIdDTO(expediente.getId());
+            archivos = new ArrayList(new Tbl_ArchivosBO().obtenerArchivos(expediente.getId()));
             String string = this.getClass().getClassLoader().getResource("").getPath();
+
             // ./SBecasCasas/build/web/WEB-INF/classes
             Path path = Paths.get(string);
+
             // ./SBecasCasas/build/web
             path = path.getParent().getParent();
+
             // ./SBecasCasas/build/web/app/Casas_Estudiantes
             path = Paths.get(path.toString(), "/app", "/Casas_Estudiantes");
             directorio = new File(path.toString() + "/fotos/" + expediente.getTbl_casaestudianteDTO().getNombre().replace(" ", "_") + "/Expediente_" + expediente.getId());
@@ -126,65 +132,35 @@ public class VerDetalleContrato {
         if (part == null) {
             return "./Ver_Detalle_Contrato.xhtml?faces-redirect=true";
         }
-        String mimeType="";
-        File temp;
-        String contentType = part.getContentType();
-        System.out.println("contentType = " + contentType);
-        System.out.println("contentType.ext = " + contentType.substring(contentType.charAt('/')));
-        try {
-            temp = File.createTempFile("asdfg", contentType.substring(contentType.charAt('/')));
-            part.write(temp.getPath());
-            mimeType = FacesContext.getCurrentInstance().getExternalContext().getMimeType(temp.toString());
-        } catch (IOException ex) {
-            Logger.getLogger(VerDetalleContrato.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String mimeType = "";
+        mimeType = FacesContext.getCurrentInstance().getExternalContext().getMimeType(part.getSubmittedFileName());
         System.out.println("mimeType = " + mimeType);
         if (mimeType.startsWith("image/")) {
+            System.out.println("its an image");
             // It's an image.
+            try {
+                InputStream is = part.getInputStream();
+                String submittedFileName = part.getSubmittedFileName();
+                File file = new File(directorio + File.separator + submittedFileName);
+                if (file.exists()) {
+                    file.delete();
+                }
+                file.createNewFile();
+                OutputStream os = new FileOutputStream(file);
+                IOUtils.copy(is, os);
+                os.close();
+                is.close();
+                String[] aux = submittedFileName.split(Pattern.quote("."));
+                String ext = aux[aux.length - 1];
+                archivo.setExtencion(ext);
+                archivo.setNombre(submittedFileName);
+                archivo.setUrl(directorio + File.separator + submittedFileName);
+                int id = new Tbl_ArchivosBO().insertar(archivo);
+                archivo.setId(id);
+            } catch (IOException ex) {
+                Logger.getLogger(VerDetalleContrato.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-//        try {
-//            InputStream is = part.getInputStream();
-//            String aux2 = part.getSubmittedFileName();
-//            String[] aux = aux2.split(Pattern.quote("."));
-//            String ext = aux[aux.length - 1];
-//            String string = aux2.replaceAll("." + ext, "");
-//            File file = new File(dir);
-//            file.mkdir();
-//            if (partArchivo != null) {
-//                file = new File(dir + partArchivo);
-//                file.delete();
-//            }
-//            file = new File(dir + string + "." + ext);
-//            OutputStream os = new FileOutputStream(file);
-//            IOUtils.copy(is, os);
-//            os.close();
-//            is.close();
-//            partPath = file.getPath();
-//            partArchivo = part.getSubmittedFileName();
-//            BoArchivoImpl boa = new BoArchivoImpl();
-//            BoProyectoImpl bop = new BoProyectoImpl();
-//            DToArchivo archivo = new DToArchivo();
-//            if (proyecto.getMapaUnidadAcademica() == -1) {
-//                archivo.setNombreArchivo(string);
-//                archivo.setExtension(ext);
-//                int indiceArchivo = boa.agregar(archivo, new DAoArchivoImpl());
-//                proyecto.setMapaUnidadAcademica(indiceArchivo);
-//            } else {
-//                archivo.setIdArchivo(proyecto.getMapaUnidadAcademica());
-//                archivo = boa.buscar(archivo, new DAoArchivoImpl());
-//                archivo.setNombreArchivo(string);
-//                archivo.setExtension(ext);
-//                boolean bool = boa.modificar(archivo, new DAoArchivoImpl());
-//                if (bool) {
-//                    // si se modifico
-//                } else {
-//                    // no se modifico
-//                }
-//            }
-//            bop.modificar(proyecto, new DAoProyectoImpl());
-//        } catch (IOException ex) {
-//            Logger.getLogger(AgregarFCIIEMS.class.getName()).log(Level.SEVERE, null, ex);
-//        }
         return "./Ver_Detalle_Contrato.xhtml?faces-redirect=true";
     }
 

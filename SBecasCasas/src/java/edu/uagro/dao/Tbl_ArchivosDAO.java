@@ -1,5 +1,6 @@
 package edu.uagro.dao;
 
+import edu.uagro.dto.Cat_ArchivosDTO;
 import edu.uagro.dto.Tbl_ArchivosDTO;
 import edu.uagro.util.BDConexion;
 import edu.uagro.util.Util;
@@ -9,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -209,5 +211,55 @@ public class Tbl_ArchivosDAO {
             } 
         }
         return archivosDTO;
+    }
+
+    public ArrayList<Tbl_ArchivosDTO> obtenerArchivos(int expedienteId) {
+        ArrayList<Tbl_ArchivosDTO> archivos = new ArrayList();
+        Connection con = BDConexion.getConexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        StringBuilder sql;
+        Util[] columnas = {Util.ASTERISCO};
+        Util tabla = Util.tbl_archivos;
+        sql = Utilerias.prepareSelect(tabla, columnas);
+        sql.append(Util.INNER_JOIN).append(Util.ESPACIO)
+                .append(Util.cat_archivos).append(Util.ESPACIO)
+                .append(Util.ON).append(Util.ESPACIO)
+                .append(Util.cat_archivos).append(Util.PUNTO).append(Util.cat_archivosId).append(Util.ESPACIO_IGUAL_ESPACIO)
+                .append(Util.tbl_archivos).append(Util.PUNTO).append(Util.tbl_archivos_cat_archivosId).append(Util.ESPACIO);
+        Util columnaCondicion = Util.tbl_archivos_tbl_expedientecasaId;
+        sql = Utilerias.concatenarWhere(sql, columnaCondicion);
+        try {
+            ps = con.prepareStatement(sql.toString());
+            ps.setInt(1, expedienteId);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Tbl_ArchivosDTO archivosDTO = new Tbl_ArchivosDTO();
+                archivosDTO.setId(rs.getInt(Utilerias.getPropiedad(Util.tbl_archivosId)));
+                archivosDTO.setTbl_expedientecasaIdDTO(rs.getInt(Utilerias.getPropiedad(Util.tbl_archivos_tbl_expedientecasaId)));
+                archivosDTO.setNombre(rs.getString(Utilerias.getPropiedad(Util.tbl_archivosNombre)));
+                archivosDTO.setExtencion(rs.getString(Utilerias.getPropiedad(Util.tbl_archivosExtencion)));
+                archivosDTO.setUrl(rs.getString(Utilerias.getPropiedad(Util.tbl_archivosURL)));
+                archivosDTO.setDescripcion(rs.getString(Utilerias.getPropiedad(Util.tbl_archivosDescripcion)));
+                archivosDTO.setCat_archivosIdDTO(rs.getInt(Utilerias.getPropiedad(Util.tbl_archivos_cat_archivosId)));
+                Cat_ArchivosDTO catArch = new Cat_ArchivosDTO();
+                catArch.setId(rs.getInt(Utilerias.getPropiedad(Util.cat_archivosId)));
+                catArch.setNombre(rs.getString(Utilerias.getPropiedad(Util.cat_archivosNombre)));
+                catArch.setEstado(rs.getInt(Utilerias.getPropiedad(Util.cat_archivosEstado)));
+                archivosDTO.setCat_archivosDTO(catArch);
+                archivos.add(archivosDTO);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(Tbl_ArchivosDAO.class.getName()).log(Level.SEVERE, null, e);            
+        }finally{
+            if(con != null){
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Tbl_ArchivosDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } 
+        }
+        return archivos;
     }
 }

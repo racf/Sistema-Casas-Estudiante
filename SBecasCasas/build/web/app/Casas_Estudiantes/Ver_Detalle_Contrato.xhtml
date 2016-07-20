@@ -170,46 +170,83 @@
                 <ul class="nav nav-tabs">
                     <li role="presentation" class="active"><a href="#!">Agregar Fotos de la Casa</a></li>
                 </ul>
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-1">
-
+                <h:form id="formImg" enctype="multipart/form-data" >
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <br/>
+                                    <h:outputLabel for="foto" value="Foto : " />&nbsp;
+                                    <h:selectOneMenu id="foto" class="chosenCombo" value="#{casas_verDetalleContrato.archivo.cat_archivosIdDTO}">
+                                        <f:selectItem
+                                            itemValue="" itemLabel="--- Seleccione Foto ---" />
+                                        <f:selectItems 
+                                            value="#{casas_verDetalleContrato.cat_archivos}" var="elemento"
+                                            itemValue="#{elemento.id}" itemLabel="#{elemento.nombre}" />
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="col-md-6">
+                                    <br/>
+                                    <div style="display: inline">
+                                        <h:outputLabel for="archivo" value="Archivo : #{casas_verDetalleContrato.part.submittedFileName}" />&nbsp;
+                                        <h:inputFile id="archivo" value="#{casas_verDetalleContrato.part}" 
+                                                     a:accept="image/x-png, image/gif, image/jpeg">
+                                        </h:inputFile>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <br/>
+                                    <h:commandButton value="Subir" class="btn btn-info"
+                                                     action="#{casas_verDetalleContrato.subirFoto()}">
+                                        <f:ajax
+                                            execute="foto archivo"
+                                            render="@form" />
+                                    </h:commandButton>
+                                </div>
                             </div>
-                            <div class="col-md-2">
-                                <br/>
-                                <h:outputLabel for="foto" value="Foto : " />&nbsp;
-                                <h:selectOneMenu id="foto" class="chosenCombo" value="#{casas_verDetalleContrato.archivo.cat_archivosIdDTO}">
-                                    <f:selectItem
-                                        itemValue="" itemLabel="--- Seleccione Foto ---" />
-                                </h:selectOneMenu>
-                            </div>
-                            <div class="col-md-1">
-                                <br/>
-                                <h:form enctype="multipart/form-data" id="vistaMapa">
-                                    <h:outputLabel for="archivo" value="Archivo : " />&nbsp;
-                                    <h:inputFile id="archivo" value="#{casas_verDetalleContrato.part}" a:accept="image/x-png, image/gif, image/jpeg"/>
-                                    <h:commandButton value="Subir"
-                                                     action="#{casas_verDetalleContrato.subirFoto()}"/>
-                                </h:form>
-                            </div>
-                            <div class="form-inline col-md-3">
-                                <br/>
-                                <br/>
-                            </div>
-                            <div class="col-md-3">
-                                <br/>
-                            </div>
-                            <div class="col-md-1">
-                                <br/>
-                                <br/>
-                                <h:link class="btn btn-default" >
-                                    <span class="glyphicon glyphicon-user">&nbsp;Agregar</span>
-                                </h:link>
-                            </div>
+                            <br/>
+                            <h:dataTable id="table" class="display" value="#{casas_verDetalleContrato.archivos}" var="elemento">
+                                <h:column>
+                                    <f:facet name="header">
+                                        Clave
+                                    </f:facet>
+                                    <h:outputText value="#{elemento.id}" >
+                                        <f:convertNumber/>
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        Nombre
+                                    </f:facet>
+                                    <h:outputText value="#{elemento.nombre}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        Tipo Foto
+                                    </f:facet>
+                                    <h:outputText value="#{elemento.cat_archivosIdDTO}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        Descripcion
+                                    </f:facet>
+                                    <h:outputText value="#{elemento.descripcion}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        Opciones
+                                    </f:facet>
+                                    <h:link class="btn-primary">
+                                        <span class="glyphicon glyphicon-download"></span>
+                                    </h:link>
+                                    <h:link class="btn-danger">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </h:link>
+                                </h:column>
+                            </h:dataTable>
                         </div>
                     </div>
-                </div>
+                </h:form>
             </ui:define>
 
         </ui:composition>
