@@ -188,7 +188,7 @@ public class Cat_ArchivosDAO {
             ps = con.prepareStatement(sql.toString());
             ps.setInt(1, 1);
             rs = ps.executeQuery();
-            while(rs.first()){
+            while(rs.next()){
                 cat_archivo = new Cat_ArchivosDTO();
                 cat_archivo.setId(rs.getInt(Utilerias.getPropiedad(Util.cat_archivosId)));
                 cat_archivo.setNombre(rs.getString(Utilerias.getPropiedad(Util.cat_archivosNombre)));
@@ -197,7 +197,7 @@ public class Cat_ArchivosDAO {
             }
         } catch (SQLException ex) {
             Logger.getLogger(Cat_ArchivosDAO.class.getName()).log(Level.SEVERE, null, ex);
-               cat_archivos = null;
+            cat_archivos = null;
         } finally {
             try {
                 con.close();

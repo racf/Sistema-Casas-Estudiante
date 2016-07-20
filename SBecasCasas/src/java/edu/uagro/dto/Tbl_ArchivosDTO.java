@@ -8,6 +8,7 @@ public class Tbl_ArchivosDTO {
     private String url;
     private String descripcion;
     private int cat_archivosIdDTO;
+    private Cat_ArchivosDTO cat_archivosDTO;
 
     public int getId() {
         return id;
@@ -63,6 +64,14 @@ public class Tbl_ArchivosDTO {
 
     public void setCat_archivosIdDTO(int cat_archivosIdDTO) {
         this.cat_archivosIdDTO = cat_archivosIdDTO;
+    }
+
+    public Cat_ArchivosDTO getCat_archivosDTO() {
+        return cat_archivosDTO;
+    }
+
+    public void setCat_archivosDTO(Cat_ArchivosDTO cat_archivosDTO) {
+        this.cat_archivosDTO = cat_archivosDTO;
     }
     
 }
